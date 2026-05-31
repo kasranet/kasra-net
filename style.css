@@ -1,0 +1,328 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Vazirmatn,sans-serif;
+	font-variant-numeric: normal;
+    background:#f5f7fb;
+    color:#1f2937;
+}
+
+.navbar{
+    background:linear-gradient(90deg,#021b57,#003b9c);
+    padding:18px 0;
+}
+
+.navbar-brand{
+    font-size:28px;
+    font-weight:700;
+}
+
+.nav-link{
+    color:#fff !important;
+    margin:0 10px;
+    font-weight:500;
+}
+
+.hero{
+    background:linear-gradient(135deg,#021b57,#0046c7);
+    min-height:700px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    position:relative;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(255,255,255,.08),transparent);
+}
+
+.hero h1{
+    font-size:72px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.hero h2{
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+.hero p{
+    font-size:20px;
+    line-height:2;
+}
+
+.btn-call{
+    background:#0d6efd;
+    border:none;
+    color:white;
+    padding:14px 40px;
+    border-radius:12px;
+    text-decoration:none;
+    display:inline-block;
+    margin-left:10px;
+}
+
+.btn-whatsapp{
+    background:#22c55e;
+    border:none;
+    color:white;
+    padding:14px 40px;
+    border-radius:12px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    color:#0a3d91;
+    font-size:42px;
+    font-weight:700;
+}
+
+.service-card{
+    background:white;
+    border-radius:18px;
+    padding:35px;
+    text-align:center;
+    height:100%;
+    transition:.3s;
+    box-shadow:0 5px 25px rgba(0,0,0,.06);
+}
+
+.service-card:hover{
+    transform:translateY(-8px);
+}
+
+.service-card i{
+    font-size:52px;
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+.service-card h5{
+    font-size:24px;
+    margin-bottom:15px;
+    color:#17377d;
+}
+
+.service-card p{
+    line-height:1.8;
+    color:#555;
+}
+
+.features{
+    background:#eef4ff;
+    padding:80px 0;
+}
+
+.feature-box{
+    text-align:center;
+}
+
+.feature-box i{
+    width:90px;
+    height:90px;
+    line-height:90px;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.steps{
+    padding:80px 0;
+}
+
+.step-card{
+    background:white;
+    border-radius:16px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.pricing{
+    background:white;
+    padding:80px 0;
+}
+
+.price-card{
+    background:white;
+    border-radius:20px;
+    text-align:center;
+    padding:40px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.price-card h4{
+    color:#0d47c2;
+    margin-bottom:20px;
+}
+
+.price{
+    background:#0d6efd;
+    color:white;
+    display:inline-block;
+    padding:10px 25px;
+    border-radius:10px;
+}
+
+footer{
+    background:linear-gradient(90deg,#021b57,#003b9c);
+    color:white;
+    padding:60px 0 20px;
+}
+
+.footer-title{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.whatsapp-float{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#22c55e;
+    color:white;
+    text-align:center;
+    line-height:65px;
+    font-size:28px;
+    z-index:999;
+    box-shadow:0 10px 20px rgba(0,0,0,.25);
+}
+
+@media(max-width:768px){
+
+.hero{
+    background:linear-gradient(135deg,#021b57,#0046c7);
+    min-height:850px;
+    display:flex;
+    align-items:center;
+    color:white;
+    padding-top:120px;
+}
+
+.hero h1{
+    font-size:58px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.hero h2{
+    font-size:36px;
+    line-height:1.5;
+}
+
+.hero p{
+    font-size:20px;
+    line-height:2;
+}
+
+.hero-image{
+    width:100%;
+    max-width:650px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+} /* پایان مدیا کوئری */
+/* بنر متحرک */
+
+.news-ticker{
+    width:100%;
+    height:55px;
+    background:#ffb703;
+    overflow:hidden;
+    margin-top:76px;
+    position:relative;
+    display:flex;
+    align-items:center;
+	border-bottom:3px solid rgba(0,0,0,.08);
+	box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.news-ticker-content{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    white-space:nowrap;
+    font-weight:700;
+    font-size:16px;
+    color:#111;
+    animation:ticker 20s linear infinite;
+	padding:0 20px;
+}
+
+@keyframes ticker{
+    from{
+        transform:translate(100%,-50%);
+    }
+    to{
+        transform:translate(-100%,-50%);
+    }
+}
+
+.hero h1{
+    font-size:58px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.hero h2{
+    font-size:36px;
+    line-height:1.5;
+}
+
+.hero p{
+    font-size:20px;
+    line-height:2;
+}
+
+.hero-image{
+    width:100%;
+    max-width:650px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+
+.news-ticker{
+    width:100%;
+    background:#ffb703;
+    overflow:hidden;
+    height:50px;
+    display:flex;
+    align-items:center;
+}
+
+.news-ticker-content{
+    white-space:nowrap;
+    font-weight:700;
+    color:#000;
+    animation:ticker 20s linear infinite;
+}
+
+@keyframes ticker{
+    0%{
+        transform:translateX(100%);
+    }
+
+    100%{
+        transform:translateX(-100%);
+    }
+}
