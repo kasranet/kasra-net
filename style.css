@@ -258,7 +258,7 @@ footer{
 
 .news-ticker-content{
     position:absolute;
-    top:50%;
+    top:54%;
     transform:translateY(-50%);
     white-space:nowrap;
     font-weight:700;
