@@ -171,6 +171,44 @@
     color:#555;
     text-align:justify;
 }
+		.seo-content h2 {
+    position: relative;
+    color: #2563eb;
+    margin: 40px 0 15px;
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.seo-content h2 i {
+    font-size: 2rem;
+    color: #3b82f6;
+    background: #e0e7ff;
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.seo-content p {
+    line-height: 2.3;
+    color: #555;
+    text-align: justify;
+    margin-right: 55px;
+}
+
+@media (max-width: 768px) {
+    .seo-content h2 i {
+        font-size: 1.4rem;
+        padding: 6px;
+    }
+    .seo-content p {
+        margin-right: 0;
+    }
+    .seo-content h2 {
+        flex-wrap: wrap;
+    }
+}
 	</style>
 <body>
 
@@ -491,8 +529,10 @@
 <section class="seo-content py-5">
     <div class="container">
 
-        <h2>کافی نت آنلاین و خدمات اینترنتی</h2>
-
+        <h2>
+            <i class="fas fa-globe"></i>
+            کافی نت آنلاین و خدمات اینترنتی
+        </h2>
         <p>
             کافی نت آنلاین کسرا ارائه‌دهنده انواع خدمات اینترنتی و ثبت‌نام‌های آنلاین
             به صورت سریع و مطمئن است. ثبت‌نام سامانه‌های دولتی، خدمات دولت الکترونیک،
@@ -500,23 +540,29 @@
             حضوری انجام می‌شود.
         </p>
 
-        <h2>نصب ویندوز در محل</h2>
-
+        <h2>
+            <i class="fab fa-windows"></i>
+            نصب ویندوز در محل
+        </h2>
         <p>
             خدمات نصب ویندوز در محل شامل نصب ویندوز 10 و 11، نصب درایورها،
             بهینه‌سازی سیستم و نصب نرم‌افزارهای عمومی و تخصصی است. این خدمات
             بدون نیاز به جابه‌جایی کامپیوتر یا لپ‌تاپ در محل شما انجام می‌شود.
         </p>
 
-        <h2>ثبت نام کارت سوخت</h2>
-
+        <h2>
+            <i class="fas fa-gas-pump"></i>
+            ثبت نام کارت سوخت
+        </h2>
         <p>
             در صورت مفقود شدن کارت سوخت یا نیاز به دریافت کارت سوخت المثنی،
             تمامی مراحل ثبت درخواست و تکمیل اطلاعات به صورت آنلاین انجام می‌شود.
         </p>
 
-        <h2>خدمات کامپیوتری در محل</h2>
-
+        <h2>
+            <i class="fas fa-laptop-code"></i>
+            خدمات کامپیوتری در محل
+        </h2>
         <p>
             نصب نرم‌افزار، رفع مشکلات ویندوز، بهینه‌سازی سیستم، نصب آنتی‌ویروس،
             عیب‌یابی نرم‌افزاری و راه‌اندازی نرم‌افزارهای تخصصی از جمله خدمات
