@@ -447,7 +447,268 @@
             </p>
         </div>
     </section>
+<!-- ============================================================
+     فرم ثبت درخواست — کافی نت آنلاین کسرا
+     
+     راه‌اندازی:
+     1. برو formspree.io و ثبت‌نام کن
+     2. یه فرم جدید بساز
+     3. مقدار FORMSPREE_ENDPOINT رو با آدرس خودت عوض کن
+     ============================================================ -->
 
+<section id="order" class="py-5" style="background: #f8fafc;">
+    <div class="container">
+
+        <div class="section-title text-center mb-5">
+            <h2>ثبت درخواست</h2>
+            <p>اطلاعات خود را وارد کنید، در اسرع وقت با شما تماس می‌گیریم</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+
+                <div class="card shadow-sm border-0 rounded-4 p-4">
+
+                    <!-- ✅ action رو با endpoint فرم‌اسپری خودت عوض کن -->
+                    <form id="orderForm"
+                          action="https://formspree.io/f/xvzynvwe"
+                          method="POST">
+
+                        <!-- فیلد مخفی برای ریدایرکت بعد از ارسال -->
+                        <input type="hidden" name="_next" value="https://kasrakafinet.ir?sent=1">
+                        <!-- عنوان ایمیل دریافتی -->
+                        <input type="hidden" name="_subject" value="درخواست جدید — کافی نت کسرا">
+                        <!-- غیرفعال کردن captcha اسپری (اختیاری) -->
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <!-- نام -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">نام و نام خانوادگی <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" placeholder="مثلاً: علی رضایی" required>
+                        </div>
+
+                        <!-- شماره تماس -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">شماره تماس <span class="text-danger">*</span></label>
+                            <input type="tel" name="phone" class="form-control" placeholder="09xxxxxxxxx" required
+                                   pattern="^09[0-9]{9}$" title="شماره موبایل معتبر وارد کنید">
+                        </div>
+
+                        <!-- انتخاب خدمت -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">نوع خدمت <span class="text-danger">*</span></label>
+                            <select name="service" class="form-select" id="serviceSelect" required onchange="showFields(this.value)">
+                                <option value="">— انتخاب کنید —</option>
+                                <option value="ثبت‌نام اینترنتی">ثبت‌نام اینترنتی</option>
+                                <option value="نصب ویندوز">نصب ویندوز</option>
+                                <option value="نصب نرم‌افزار">نصب نرم‌افزار</option>
+                                <option value="دولت الکترونیک">دولت الکترونیک (کاتب، خودنویس، اسکان)</option>
+                                <option value="ثبت‌نام آزمون">ثبت‌نام آزمون (کنکور، استخدامی)</option>
+                                <option value="بیمه">بیمه و تامین اجتماعی</option>
+                                <option value="رفع مشکل سیستم">رفع مشکل سیستم</option>
+                                <option value="سایر">سایر</option>
+                            </select>
+                        </div>
+
+                        <!-- ===== فیلدهای شرطی ===== -->
+
+                        <!-- ثبت‌نام اینترنتی -->
+                        <div id="fields-ثبت‌نام اینترنتی" class="dynamic-fields d-none">
+                            <div class="alert alert-info py-2 mb-3 small">
+                                📌 لطفاً مدارک مورد نیاز (کارت ملی، شناسنامه) را آماده کنید.
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">نام سامانه یا سایت مورد نظر</label>
+                                <input type="text" name="site_name" class="form-control" placeholder="مثلاً: سامانه ثبت احوال">
+                            </div>
+                        </div>
+
+                        <!-- نصب ویندوز -->
+                        <div id="fields-نصب ویندوز" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">نوع دستگاه</label>
+                                <select name="device_type" class="form-select">
+                                    <option value="">انتخاب کنید</option>
+                                    <option>لپ‌تاپ</option>
+                                    <option>کامپیوتر رومیزی</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">نسخه ویندوز مورد نظر</label>
+                                <select name="windows_version" class="form-select">
+                                    <option value="">انتخاب کنید</option>
+                                    <option>ویندوز ۱۱</option>
+                                    <option>ویندوز ۱۰</option>
+                                    <option>هر کدام مناسب‌تر باشد</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">آدرس تقریبی (برای اعزام در محل)</label>
+                                <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                            </div>
+                        </div>
+
+                        <!-- نصب نرم‌افزار -->
+                        <div id="fields-نصب نرم‌افزار" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">نام نرم‌افزار(ها)</label>
+                                <input type="text" name="software_names" class="form-control" placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">آدرس تقریبی</label>
+                                <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                            </div>
+                        </div>
+
+                        <!-- دولت الکترونیک -->
+                        <div id="fields-دولت الکترونیک" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">نوع خدمت دولتی</label>
+                                <select name="gov_service" class="form-select">
+                                    <option value="">انتخاب کنید</option>
+                                    <option>کاتب (دفاتر اسناد)</option>
+                                    <option>خودنویس</option>
+                                    <option>سامانه املاک و اسکان</option>
+                                    <option>سایر</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- ثبت‌نام آزمون -->
+                        <div id="fields-ثبت‌نام آزمون" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">نام آزمون</label>
+                                <input type="text" name="exam_name" class="form-control" placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
+                            </div>
+                        </div>
+
+                        <!-- بیمه -->
+                        <div id="fields-بیمه" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">نوع خدمت بیمه</label>
+                                <select name="insurance_service" class="form-select">
+                                    <option value="">انتخاب کنید</option>
+                                    <option>ثبت‌نام بیمه تامین اجتماعی</option>
+                                    <option>استعلام بیمه</option>
+                                    <option>سابقه بیمه</option>
+                                    <option>سایر</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- رفع مشکل سیستم -->
+                        <div id="fields-رفع مشکل سیستم" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">شرح مشکل</label>
+                                <textarea name="problem_desc" class="form-control" rows="3"
+                                          placeholder="مشکل سیستم را توضیح دهید..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">آدرس تقریبی</label>
+                                <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                            </div>
+                        </div>
+
+                        <!-- سایر -->
+                        <div id="fields-سایر" class="dynamic-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label">توضیحات</label>
+                                <textarea name="description" class="form-control" rows="3"
+                                          placeholder="خدمت مورد نظر را توضیح دهید..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- ===== توضیحات اضافه (همیشه نمایش) ===== -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">توضیحات تکمیلی</label>
+                            <textarea name="notes" class="form-control" rows="2"
+                                      placeholder="هر نکته‌ای که لازم است بدانیم..."></textarea>
+                        </div>
+
+                        <!-- دکمه ارسال -->
+                        <button type="submit" class="btn btn-primary w-100 btn-lg" id="submitBtn">
+                            <span id="btnText">ارسال درخواست</span>
+                            <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ms-2"></span>
+                        </button>
+
+                        <!-- پیام موفقیت -->
+                        <div id="successMsg" class="alert alert-success mt-3 d-none text-center">
+                            ✅ درخواست شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم.
+                        </div>
+
+                        <!-- پیام خطا -->
+                        <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center">
+                            ❌ مشکلی پیش آمد. لطفاً مستقیم با شماره تماس بگیرید.
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+// نمایش فیلدهای مخصوص هر خدمت
+function showFields(value) {
+    // مخفی کردن همه
+    document.querySelectorAll('.dynamic-fields').forEach(el => {
+        el.classList.add('d-none');
+        // غیرفعال کردن required برای فیلدهای مخفی
+        el.querySelectorAll('input, select, textarea').forEach(f => f.removeAttribute('required'));
+    });
+
+    // نمایش فیلد مربوطه
+    if (value) {
+        const target = document.getElementById('fields-' + value);
+        if (target) {
+            target.classList.remove('d-none');
+        }
+    }
+}
+
+// ارسال فرم با fetch (بدون ریلود صفحه)
+document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn     = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const spinner = document.getElementById('btnSpinner');
+    const success = document.getElementById('successMsg');
+    const error   = document.getElementById('errorMsg');
+
+    // حالت لودینگ
+    btn.disabled = true;
+    btnText.textContent = 'در حال ارسال...';
+    spinner.classList.remove('d-none');
+    success.classList.add('d-none');
+    error.classList.add('d-none');
+
+    try {
+        const res = await fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+            success.classList.remove('d-none');
+            this.reset();
+            showFields('');
+        } else {
+            error.classList.remove('d-none');
+        }
+    } catch {
+        error.classList.remove('d-none');
+    } finally {
+        btn.disabled = false;
+        btnText.textContent = 'ارسال درخواست';
+        spinner.classList.add('d-none');
+    }
+});
+</script>
     <!-- Footer -->
     <footer>
         <div class="container">
