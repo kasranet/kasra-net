@@ -18,7 +18,40 @@
 	<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+	<style>
+.floating-bale,
+.floating-call {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+    z-index: 9999;
+    transition: .3s;
+}
 
+.floating-bale {
+    bottom: 90px;
+    background: #0088cc;
+}
+
+.floating-call {
+    bottom: 20px;
+    background: #28a745;
+}
+
+.floating-bale:hover,
+.floating-call:hover {
+    transform: scale(1.1);
+}
+	</style>
 <body>
 
     <!-- Navbar -->
