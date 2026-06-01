@@ -27,77 +27,26 @@
     </script>
 
     <style>
-        /* ===== Base ===== */
         *, *::before, *::after { box-sizing: border-box; }
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            margin: 0;
-        }
+        body { font-family: 'Vazirmatn', sans-serif; background: #f8fafc; color: #1e293b; margin: 0; }
 
         /* ===== Navbar ===== */
-        .navbar {
-            background: rgba(15,44,143,0.97);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 14px 0;
-            transition: .3s;
-        }
-        .navbar-brand {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fff !important;
-            letter-spacing: -0.3px;
-        }
-        .nav-link {
-            color: rgba(255,255,255,.85) !important;
-            font-weight: 600;
-            padding: 6px 14px !important;
-            border-radius: 8px;
-            transition: .2s;
-        }
+        .navbar { background: rgba(15,44,143,0.97); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 14px 0; transition: .3s; }
+        .navbar-brand { font-size: 1.2rem; font-weight: 800; color: #fff !important; }
+        .nav-link { color: rgba(255,255,255,.85) !important; font-weight: 600; padding: 6px 14px !important; border-radius: 8px; transition: .2s; }
         .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.1); }
 
         /* ===== News ticker ===== */
-        .news-ticker {
-            background: #1d4ed8;
-            color: #fff;
-            padding: 10px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            position: fixed;
-            top: 62px;
-            width: 100%;
-            z-index: 1029;
-        }
-        .news-ticker-content {
-            display: inline-block;
-            animation: ticker 28s linear infinite;
-            font-size: .9rem;
-            font-weight: 600;
-        }
-        @keyframes ticker {
-            from { transform: translateX(-100%); }
-            to   { transform: translateX(100vw); }
-        }
+        .news-ticker { background: #1d4ed8; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; position: fixed; top: 62px; width: 100%; z-index: 1029; }
+        .news-ticker-content { display: inline-block; animation: ticker 28s linear infinite; font-size: .9rem; font-weight: 600; }
+        @keyframes ticker { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
 
         /* ===== Hero ===== */
-        .hero {
-            padding: 140px 0 90px;
-            background: linear-gradient(135deg, #0f2c8f, #1d4ed8);
-            color: #fff;
-            overflow: hidden;
-        }
+        .hero { padding: 140px 0 90px; background: linear-gradient(135deg,#0f2c8f,#1d4ed8); color: #fff; overflow: hidden; }
         .hero h1 { font-size: 3rem; font-weight: 900; }
         .hero h2 { font-size: 1.8rem; font-weight: 700; }
         .hero p  { opacity: .95; line-height: 2; text-align: right; }
-        .hero-image {
-            max-width: 650px;
-            width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,.25);
-        }
+        .hero-image { max-width: 650px; width: 100%; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,.25); }
         @media (max-width: 991px) {
             .hero { text-align: center; padding-top: 160px; }
             .hero h1 { font-size: 2.2rem; }
@@ -106,25 +55,8 @@
 
         /* ===== Section title ===== */
         .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #1e293b;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 12px;
-        }
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg,#2563eb,#3b82f6);
-            border-radius: 2px;
-        }
+        .section-title h2 { font-size: 2rem; font-weight: 800; color: #1e293b; position: relative; display: inline-block; padding-bottom: 12px; }
+        .section-title h2::after { content: ''; position: absolute; bottom: 0; right: 50%; transform: translateX(50%); width: 60px; height: 4px; background: linear-gradient(90deg,#2563eb,#3b82f6); border-radius: 2px; }
         .section-title p { color: #64748b; margin-top: 10px; }
 
         /* ===== Service cards ===== */
@@ -138,86 +70,33 @@
             transition: .35s;
             box-shadow: 0 4px 20px rgba(0,0,0,.07);
             border: 1px solid rgba(0,0,0,.05);
+            cursor: pointer;
         }
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(37,99,235,.15);
-        }
-        .service-card i {
-            font-size: 2.4rem;
-            color: #2563eb;
-            margin-bottom: 16px;
-            display: block;
-        }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(37,99,235,.15); }
+        .service-card i { font-size: 2.4rem; color: #2563eb; margin-bottom: 16px; display: block; }
         .service-card h5 { font-weight: 700; color: #1e293b; margin-bottom: 8px; }
         .service-card p  { color: #64748b; font-size: .92rem; margin: 0; }
-        <div class="service-card" onclick="openOrderModal('ثبت‌نام اینترنتی')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('نصب ویندوز')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('نصب نرم‌افزار')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('دولت الکترونیک')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('ثبت‌نام آزمون')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('بیمه')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('رفع مشکل سیستم')" style="cursor:pointer">
-        <div class="service-card" onclick="openOrderModal('سایر')" style="cursor:pointer">
 
         /* ===== Features ===== */
         .features { background: linear-gradient(135deg,#0f2c8f,#1d4ed8); padding: 80px 0; }
         .features .section-title h2 { color: #fff; }
         .features .section-title h2::after { background: rgba(255,255,255,.5); }
-        .feature-box {
-            background: rgba(255,255,255,.12);
-            border: 1px solid rgba(255,255,255,.18);
-            border-radius: 20px;
-            padding: 36px 20px;
-            text-align: center;
-            color: #fff;
-            transition: .35s;
-            backdrop-filter: blur(4px);
-        }
-        .feature-box:hover {
-            background: rgba(255,255,255,.2);
-            transform: translateY(-6px);
-        }
-        .feature-box i {
-            font-size: 2.4rem;
-            margin-bottom: 14px;
-            display: block;
-            color: #bfdbfe;
-        }
+        .feature-box { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); border-radius: 20px; padding: 36px 20px; text-align: center; color: #fff; transition: .35s; backdrop-filter: blur(4px); }
+        .feature-box:hover { background: rgba(255,255,255,.2); transform: translateY(-6px); }
+        .feature-box i { font-size: 2.4rem; margin-bottom: 14px; display: block; color: #bfdbfe; }
         .feature-box h5 { font-weight: 700; margin: 0; }
 
         /* ===== Testimonials ===== */
         .testimonials { background: linear-gradient(180deg,#f8fafc,#ffffff); padding: 80px 0; }
-        .testimonial-card {
-            background: #fff;
-            padding: 30px 25px;
-            border-radius: 24px;
-            text-align: center;
-            height: 100%;
-            transition: .35s;
-            border: 1px solid rgba(0,0,0,.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,.06);
-        }
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,.12);
-        }
+        .testimonial-card { background: #fff; padding: 30px 25px; border-radius: 24px; text-align: center; height: 100%; transition: .35s; border: 1px solid rgba(0,0,0,.05); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+        .testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.12); }
         .stars { color: #fbbf24; font-size: 22px; margin-bottom: 15px; letter-spacing: 2px; }
         .testimonial-card p { color: #555; line-height: 2; min-height: 90px; }
         .testimonial-card h6 { margin-top: 15px; font-weight: 700; color: #2563eb; }
 
         /* ===== Pricing ===== */
         .pricing { background: #f1f5f9; padding: 80px 0; }
-        .price-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 36px 24px;
-            text-align: center;
-            box-shadow: 0 6px 24px rgba(0,0,0,.07);
-            border: 1px solid rgba(0,0,0,.05);
-            transition: .35s;
-            height: 100%;
-        }
+        .price-card { background: #fff; border-radius: 20px; padding: 36px 24px; text-align: center; box-shadow: 0 6px 24px rgba(0,0,0,.07); border: 1px solid rgba(0,0,0,.05); transition: .35s; height: 100%; }
         .price-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(37,99,235,.12); }
         .price-card h4 { font-weight: 700; color: #1e293b; margin-bottom: 12px; }
         .price { font-size: 1.5rem; font-weight: 900; color: #2563eb; }
@@ -228,37 +107,13 @@
         #contact h4 a { color: #2563eb; text-decoration: none; font-weight: 800; }
         #contact h4 a:hover { text-decoration: underline; }
         #contact p { color: #64748b; }
-        .contact-btns {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+        .contact-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
 
         /* ===== SEO Content ===== */
         .seo-content { background: #fff; padding: 70px 0; border-top: 1px solid #e2e8f0; }
-        .seo-content h2 {
-            color: #2563eb;
-            margin: 40px 0 15px;
-            padding-right: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
+        .seo-content h2 { color: #2563eb; margin: 40px 0 15px; padding-right: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; }
         .seo-content h2:first-child { margin-top: 0; }
-        .seo-content h2 i {
-            font-size: 1.8rem;
-            color: #3b82f6;
-            background: #e0e7ff;
-            padding: 10px;
-            border-radius: 16px;
-            box-shadow: 0 2px 6px rgba(0,0,0,.05);
-            min-width: 52px;
-            text-align: center;
-        }
+        .seo-content h2 i { font-size: 1.8rem; color: #3b82f6; background: #e0e7ff; padding: 10px; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,.05); min-width: 52px; text-align: center; }
         .seo-content p { line-height: 2.3; color: #555; text-align: right; margin-right: 55px; }
         @media (max-width: 768px) {
             .seo-content h2 i { font-size: 1.4rem; padding: 6px; min-width: 40px; }
@@ -267,144 +122,30 @@
         }
 
         /* ===== Footer ===== */
-        footer {
-            background: #0f172a;
-            color: rgba(255,255,255,.75);
-            padding: 50px 0 24px;
-        }
-        .footer-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 14px;
-        }
+        footer { background: #0f172a; color: rgba(255,255,255,.75); padding: 50px 0 24px; }
+        .footer-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
         footer p { font-size: .92rem; margin-bottom: 6px; }
         footer hr { border-color: rgba(255,255,255,.1); margin: 28px 0 18px; }
         footer .text-center { color: rgba(255,255,255,.55); font-size: .85rem; }
 
         /* ===== FAB ===== */
-        .fab-container {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .fab-main {
-            width: 65px;
-            height: 65px;
-            border: none;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            color: #fff;
-            font-size: 26px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,0,0,.25);
-            transition: .3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .fab-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: center; }
+        .fab-main { width: 65px; height: 65px; border: none; border-radius: 50%; background: linear-gradient(135deg,#2563eb,#3b82f6); color: #fff; font-size: 26px; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,.25); transition: .3s; display: flex; align-items: center; justify-content: center; }
         .fab-main:hover { transform: scale(1.08); }
-        .fab-main.active { transform: rotate(45deg); }
-        .fab-item {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.15);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: .3s;
-            border: none;
-            cursor: pointer;
-        }
-        .fab-container.active .fab-item {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
+        .fab-item { width: 55px; height: 55px; border-radius: 50%; background: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(0,0,0,.15); opacity: 0; visibility: hidden; transform: translateY(20px); transition: .3s; border: none; cursor: pointer; }
+        .fab-container.active .fab-item { opacity: 1; visibility: visible; transform: translateY(0); }
 
         /* ===== MODAL ===== */
-        .order-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(10,20,50,.65);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .3s, visibility .3s;
-        }
+        .order-modal-overlay { position: fixed; inset: 0; background: rgba(10,20,50,.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 16px; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
         .order-modal-overlay.open { opacity: 1; visibility: visible; }
-        .order-modal {
-            background: #fff;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 560px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 36px 32px 28px;
-            position: relative;
-            transform: translateY(30px) scale(0.97);
-            transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-            box-shadow: 0 30px 80px rgba(0,0,0,.2);
-        }
+        .order-modal { background: #fff; border-radius: 24px; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; padding: 36px 32px 28px; position: relative; transform: translateY(30px) scale(0.97); transition: transform .35s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 30px 80px rgba(0,0,0,.2); }
         .order-modal-overlay.open .order-modal { transform: translateY(0) scale(1); }
-        .modal-close-btn {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 50%;
-            background: #f1f5f9;
-            color: #64748b;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: .2s;
-            line-height: 1;
-        }
+        .modal-close-btn { position: absolute; top: 16px; left: 16px; width: 36px; height: 36px; border: none; border-radius: 50%; background: #f1f5f9; color: #64748b; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: .2s; line-height: 1; }
         .modal-close-btn:hover { background: #e2e8f0; color: #1e293b; }
         .modal-header-title { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
         .modal-header-sub { font-size: .88rem; color: #64748b; margin-bottom: 24px; }
         .dynamic-fields { transition: .25s; }
 
-        /* ===== Hero highlight badge ===== */
-        .hero-highlight {
-            display: inline-block;
-            background: rgba(37,99,235,.1);
-            color: #2563eb;
-            border: 1px solid rgba(37,99,235,.15);
-            padding: 12px 20px;
-            border-radius: 999px;
-            font-size: .95rem;
-            font-weight: 700;
-            margin: 15px 0;
-            box-shadow: 0 4px 15px rgba(37,99,235,.08);
-        }
-        .hero-highlight i { margin-left: 6px; }
-
-        /* ===== Responsive tweaks ===== */
         @media (max-width: 576px) {
             .order-modal { padding: 28px 18px 22px; }
             .hero h1 { font-size: 1.8rem; }
@@ -419,11 +160,8 @@
         <div class="container">
             <a class="navbar-brand" href="#">کافی نت آنلاین کسرا</a>
             <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#menu"
-                    aria-controls="menu"
-                    aria-expanded="false"
-                    aria-label="منو">
+                    data-bs-toggle="collapse" data-bs-target="#menu"
+                    aria-controls="menu" aria-expanded="false" aria-label="منو">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="menu">
@@ -434,7 +172,7 @@
                     <li class="nav-item"><a class="nav-link" href="#prices">تعرفه‌ها</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">تماس با ما</a></li>
                 </ul>
-        
+                <a href="https://ble.ir/hghanbari65" class="btn btn-success" target="_blank" rel="noopener">بله</a>
             </div>
         </div>
     </nav>
@@ -451,16 +189,10 @@
         <div class="container">
             <div class="row align-items-center gy-5">
                 <div class="col-lg-5 text-center text-lg-end">
-                    <span class="badge bg-primary px-4 py-3 mb-3">
-                        سریع، مطمئن و آنلاین
-                    </span>
+                    <span class="badge bg-primary px-4 py-3 mb-3">سریع، مطمئن و آنلاین</span>
                     <h1 class="display-4 fw-bold mb-3">کافی نت آنلاین کسرا</h1>
-                    <div class="text-warning fw-bold mb-3">
-                        ⚡ انجام خدمات اینترنتی و کامپیوتری در محل
-                    </div>
-                    <h2 class="h3 mb-4">
-                        ثبت‌نام اینترنتی، خدمات دولتی و نصب ویندوز در محل
-                    </h2>
+                    <div class="text-warning fw-bold mb-3">⚡ انجام خدمات اینترنتی و کامپیوتری در محل</div>
+                    <h2 class="h3 mb-4">ثبت‌نام اینترنتی، خدمات دولتی و نصب ویندوز در محل</h2>
                     <p class="lead mb-4">
                         انجام انواع ثبت‌نام‌های اینترنتی، خدمات دولت الکترونیک،
                         ثبت‌نام کارت سوخت، سامانه املاک و اسکان،
@@ -492,56 +224,56 @@
             </div>
             <div class="row g-4">
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('ثبت‌نام اینترنتی')">
                         <i class="fa-solid fa-file-signature"></i>
                         <h5>ثبت نام اینترنتی</h5>
                         <p>ثبت نام سامانه‌ها و خدمات آنلاین</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('دولت الکترونیک')">
                         <i class="fa-solid fa-building-columns"></i>
                         <h5>دولت الکترونیک</h5>
                         <p>کاتب، خودنویس، املاک و اسکان</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('ثبت‌نام آزمون')">
                         <i class="fa-solid fa-graduation-cap"></i>
                         <h5>ثبت نام آزمون‌ها</h5>
                         <p>کنکور، استخدامی و سازمان‌ها</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('سایر')">
                         <i class="fa-solid fa-school"></i>
                         <h5>خدمات آموزشی</h5>
                         <p>مدارس، دانشگاه‌ها و انتقالی</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('نصب ویندوز')">
                         <i class="fa-brands fa-windows"></i>
                         <h5>نصب ویندوز</h5>
                         <p>نصب ویندوز ۱۰ و ۱۱ در محل</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('نصب نرم‌افزار')">
                         <i class="fa-solid fa-gear"></i>
                         <h5>نصب نرم افزار</h5>
                         <p>عمومی و تخصصی</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('رفع مشکل سیستم')">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
                         <h5>رفع مشکلات سیستم</h5>
                         <p>عیب یابی و تعمیر نرم افزاری</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
-                    <div class="service-card">
+                    <div class="service-card" onclick="openOrderModal('بیمه')">
                         <i class="fa-solid fa-shield-heart"></i>
                         <h5>بیمه و تامین اجتماعی</h5>
                         <p>خدمات سامانه‌های بیمه‌ای</p>
@@ -673,29 +405,13 @@
     <section class="seo-content">
         <div class="container">
             <h2><i class="fas fa-globe"></i> کافی نت آنلاین</h2>
-            <p>
-                کافی نت آنلاین کسرا ارائه‌دهنده انواع خدمات اینترنتی و ثبت‌نام‌های آنلاین
-                به صورت سریع و مطمئن است. ثبت‌نام سامانه‌های دولتی، خدمات دولت الکترونیک،
-                سامانه املاک و اسکان، کارت سوخت و سایر خدمات اینترنتی بدون نیاز به مراجعه
-                حضوری انجام می‌شود.
-            </p>
+            <p>کافی نت آنلاین کسرا ارائه‌دهنده انواع خدمات اینترنتی و ثبت‌نام‌های آنلاین به صورت سریع و مطمئن است. ثبت‌نام سامانه‌های دولتی، خدمات دولت الکترونیک، سامانه املاک و اسکان، کارت سوخت و سایر خدمات اینترنتی بدون نیاز به مراجعه حضوری انجام می‌شود.</p>
             <h2><i class="fab fa-windows"></i> نصب ویندوز در محل</h2>
-            <p>
-                خدمات نصب ویندوز در محل شامل نصب ویندوز ۱۰ و ۱۱، نصب درایورها،
-                بهینه‌سازی سیستم و نصب نرم‌افزارهای عمومی و تخصصی است. این خدمات
-                بدون نیاز به جابه‌جایی کامپیوتر یا لپ‌تاپ در محل شما انجام می‌شود.
-            </p>
+            <p>خدمات نصب ویندوز در محل شامل نصب ویندوز ۱۰ و ۱۱، نصب درایورها، بهینه‌سازی سیستم و نصب نرم‌افزارهای عمومی و تخصصی است. این خدمات بدون نیاز به جابه‌جایی کامپیوتر یا لپ‌تاپ در محل شما انجام می‌شود.</p>
             <h2><i class="fas fa-gas-pump"></i> ثبت نام کارت سوخت</h2>
-            <p>
-                در صورت مفقود شدن کارت سوخت یا نیاز به دریافت کارت سوخت المثنی،
-                تمامی مراحل ثبت درخواست و تکمیل اطلاعات به صورت آنلاین انجام می‌شود.
-            </p>
+            <p>در صورت مفقود شدن کارت سوخت یا نیاز به دریافت کارت سوخت المثنی، تمامی مراحل ثبت درخواست و تکمیل اطلاعات به صورت آنلاین انجام می‌شود.</p>
             <h2><i class="fas fa-laptop-code"></i> خدمات کامپیوتری در محل</h2>
-            <p>
-                نصب نرم‌افزار، رفع مشکلات ویندوز، بهینه‌سازی سیستم، نصب آنتی‌ویروس،
-                عیب‌یابی نرم‌افزاری و راه‌اندازی نرم‌افزارهای تخصصی از جمله خدمات
-                کامپیوتری در محل هستند که توسط کافی نت آنلاین کسرا ارائه می‌شوند.
-            </p>
+            <p>نصب نرم‌افزار، رفع مشکلات ویندوز، بهینه‌سازی سیستم، نصب آنتی‌ویروس، عیب‌یابی نرم‌افزاری و راه‌اندازی نرم‌افزارهای تخصصی از جمله خدمات کامپیوتری در محل هستند که توسط کافی نت آنلاین کسرا ارائه می‌شوند.</p>
         </div>
     </section>
 
@@ -731,48 +447,31 @@
         <button class="fab-main" id="fabMainBtn" onclick="toggleFab()" aria-label="منوی تماس سریع" aria-expanded="false">＋</button>
     </div>
 
-    <!-- Modal — فرم ثبت درخواست -->
-    <div class="order-modal-overlay"
-         id="orderModalOverlay"
-         role="dialog"
-         aria-modal="true"
-         aria-labelledby="modalTitle"
+    <!-- Modal -->
+    <div class="order-modal-overlay" id="orderModalOverlay"
+         role="dialog" aria-modal="true" aria-labelledby="modalTitle"
          onclick="handleOverlayClick(event)">
         <div class="order-modal">
-
-            <button class="modal-close-btn" onclick="closeOrderModal()" title="بستن" aria-label="بستن">✕</button>
-
+            <button class="modal-close-btn" onclick="closeOrderModal()" aria-label="بستن">✕</button>
             <div class="modal-header-title" id="modalTitle">📝 ثبت درخواست</div>
             <div class="modal-header-sub">اطلاعات خود را وارد کنید، در اسرع وقت تماس می‌گیریم</div>
 
-            <form id="orderForm"
-                  action="https://formspree.io/f/xvzynvwe"
-                  method="POST"
-                  novalidate>
-
+            <form id="orderForm" action="https://formspree.io/f/xvzynvwe" method="POST" novalidate>
                 <input type="hidden" name="_subject" value="درخواست جدید — کافی نت کسرا">
                 <input type="hidden" name="_captcha" value="false">
 
-                <!-- نام -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="inputName">نام و نام خانوادگی <span class="text-danger">*</span></label>
-                    <input type="text" id="inputName" name="name" class="form-control"
-                           placeholder="مثلاً: علی رضایی" required autocomplete="name">
+                    <input type="text" id="inputName" name="name" class="form-control" placeholder="مثلاً: علی رضایی" required autocomplete="name">
                     <div class="invalid-feedback">لطفاً نام خود را وارد کنید.</div>
                 </div>
 
-                <!-- شماره تماس -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="inputPhone">شماره تماس <span class="text-danger">*</span></label>
-                    <input type="tel" id="inputPhone" name="phone" class="form-control"
-                           placeholder="09xxxxxxxxx" required
-                           pattern="^09[0-9]{9}$"
-                           title="شماره موبایل معتبر وارد کنید"
-                           autocomplete="tel">
+                    <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="09xxxxxxxxx" required pattern="^09[0-9]{9}$" title="شماره موبایل معتبر وارد کنید" autocomplete="tel">
                     <div class="invalid-feedback">شماره موبایل معتبر وارد کنید (مثلاً: ۰۹۱۲۳۴۵۶۷۸۹).</div>
                 </div>
 
-                <!-- انتخاب خدمت -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="serviceSelect">نوع خدمت <span class="text-danger">*</span></label>
                     <select name="service" class="form-select" id="serviceSelect" required onchange="showFields(this.value)">
@@ -791,13 +490,10 @@
 
                 <!-- فیلدهای شرطی -->
                 <div id="fields-ثبت‌نام اینترنتی" class="dynamic-fields d-none">
-                    <div class="alert alert-info py-2 mb-3 small">
-                        📌 لطفاً مدارک مورد نیاز (کارت ملی، شناسنامه) را آماده کنید.
-                    </div>
+                    <div class="alert alert-info py-2 mb-3 small">📌 لطفاً مدارک مورد نیاز (کارت ملی، شناسنامه) را آماده کنید.</div>
                     <div class="mb-3">
                         <label class="form-label" for="site_name">نام سامانه یا سایت مورد نظر</label>
-                        <input type="text" id="site_name" name="site_name" class="form-control"
-                               placeholder="مثلاً: سامانه ثبت احوال">
+                        <input type="text" id="site_name" name="site_name" class="form-control" placeholder="مثلاً: سامانه ثبت احوال">
                     </div>
                 </div>
 
@@ -828,8 +524,7 @@
                 <div id="fields-نصب نرم‌افزار" class="dynamic-fields d-none">
                     <div class="mb-3">
                         <label class="form-label" for="software_names">نام نرم‌افزار(ها)</label>
-                        <input type="text" id="software_names" name="software_names" class="form-control"
-                               placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
+                        <input type="text" id="software_names" name="software_names" class="form-control" placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="address_sw">آدرس تقریبی</label>
@@ -853,8 +548,7 @@
                 <div id="fields-ثبت‌نام آزمون" class="dynamic-fields d-none">
                     <div class="mb-3">
                         <label class="form-label" for="exam_name">نام آزمون</label>
-                        <input type="text" id="exam_name" name="exam_name" class="form-control"
-                               placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
+                        <input type="text" id="exam_name" name="exam_name" class="form-control" placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
                     </div>
                 </div>
 
@@ -874,8 +568,7 @@
                 <div id="fields-رفع مشکل سیستم" class="dynamic-fields d-none">
                     <div class="mb-3">
                         <label class="form-label" for="problem_desc">شرح مشکل</label>
-                        <textarea id="problem_desc" name="problem_desc" class="form-control" rows="3"
-                                  placeholder="مشکل سیستم را توضیح دهید..."></textarea>
+                        <textarea id="problem_desc" name="problem_desc" class="form-control" rows="3" placeholder="مشکل سیستم را توضیح دهید..."></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="address_fix">آدرس تقریبی</label>
@@ -886,19 +579,15 @@
                 <div id="fields-سایر" class="dynamic-fields d-none">
                     <div class="mb-3">
                         <label class="form-label" for="description">توضیحات</label>
-                        <textarea id="description" name="description" class="form-control" rows="3"
-                                  placeholder="خدمت مورد نظر را توضیح دهید..."></textarea>
+                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="خدمت مورد نظر را توضیح دهید..."></textarea>
                     </div>
                 </div>
 
-                <!-- توضیحات تکمیلی -->
                 <div class="mb-4">
                     <label class="form-label fw-bold" for="notes">توضیحات تکمیلی</label>
-                    <textarea id="notes" name="notes" class="form-control" rows="2"
-                              placeholder="هر نکته‌ای که لازم است بدانیم..."></textarea>
+                    <textarea id="notes" name="notes" class="form-control" rows="2" placeholder="هر نکته‌ای که لازم است بدانیم..."></textarea>
                 </div>
 
-                <!-- دکمه ارسال -->
                 <button type="submit" class="btn btn-primary w-100 btn-lg" id="submitBtn">
                     <span id="btnText">ارسال درخواست</span>
                     <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
@@ -910,11 +599,9 @@
                 <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center" role="alert">
                     ❌ مشکلی پیش آمد. لطفاً مستقیم با شماره تماس بگیرید.
                 </div>
-
             </form>
         </div>
     </div>
-    <!-- end modal -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -923,33 +610,30 @@
             const fab = document.getElementById('fabContainer');
             const btn = document.getElementById('fabMainBtn');
             const isActive = fab.classList.toggle('active');
-            btn.classList.toggle('active', isActive);
             btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
             btn.textContent = isActive ? '✕' : '＋';
         }
         function closeFab() {
-            const fab = document.getElementById('fabContainer');
+            document.getElementById('fabContainer').classList.remove('active');
             const btn = document.getElementById('fabMainBtn');
-            fab.classList.remove('active');
-            btn.classList.remove('active');
             btn.setAttribute('aria-expanded', 'false');
             btn.textContent = '＋';
         }
 
         /* ---- Modal ---- */
-    function openOrderModal(service = '') {
-    document.getElementById('orderModalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    if (service) {
-        const select = document.getElementById('serviceSelect');
-        select.value = service;
-        showFields(service);
-    }
-    setTimeout(() => {
-        const firstInput = document.querySelector('#orderForm input, #orderForm select');
-        if (firstInput) firstInput.focus();
-    }, 350);
-}
+        function openOrderModal(service) {
+            document.getElementById('orderModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            if (service) {
+                const select = document.getElementById('serviceSelect');
+                select.value = service;
+                showFields(service);
+            }
+            setTimeout(() => {
+                const first = document.querySelector('#orderForm input, #orderForm select');
+                if (first) first.focus();
+            }, 350);
+        }
         function closeOrderModal() {
             document.getElementById('orderModalOverlay').classList.remove('open');
             document.body.style.overflow = '';
@@ -957,9 +641,7 @@
         function handleOverlayClick(e) {
             if (e.target === document.getElementById('orderModalOverlay')) closeOrderModal();
         }
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeOrderModal();
-        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrderModal(); });
 
         /* ---- فیلدهای شرطی ---- */
         function showFields(value) {
@@ -976,12 +658,7 @@
         /* ---- ارسال فرم ---- */
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            // اعتبارسنجی بومی Bootstrap
-            if (!this.checkValidity()) {
-                this.classList.add('was-validated');
-                return;
-            }
+            if (!this.checkValidity()) { this.classList.add('was-validated'); return; }
             this.classList.remove('was-validated');
 
             const btn     = document.getElementById('submitBtn');
@@ -1020,14 +697,10 @@
             }
         });
 
-        /* ---- Navbar scroll effect ---- */
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,.3)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
+        /* ---- Navbar scroll ---- */
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').style.boxShadow =
+                window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,.3)' : 'none';
         });
     </script>
 
