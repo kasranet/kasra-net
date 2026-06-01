@@ -7,9 +7,6 @@
     <title>کافی نت آنلاین کسرا | خدمات کامپیوتری و ثبت نام اینترنتی</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260531-12">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -30,6 +27,253 @@
     </script>
 
     <style>
+        /* ===== Base ===== */
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            background: rgba(15,44,143,0.97);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 14px 0;
+            transition: .3s;
+        }
+        .navbar-brand {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff !important;
+            letter-spacing: -0.3px;
+        }
+        .nav-link {
+            color: rgba(255,255,255,.85) !important;
+            font-weight: 600;
+            padding: 6px 14px !important;
+            border-radius: 8px;
+            transition: .2s;
+        }
+        .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.1); }
+
+        /* ===== News ticker ===== */
+        .news-ticker {
+            background: #1d4ed8;
+            color: #fff;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: fixed;
+            top: 62px;
+            width: 100%;
+            z-index: 1029;
+        }
+        .news-ticker-content {
+            display: inline-block;
+            animation: ticker 28s linear infinite;
+            font-size: .9rem;
+            font-weight: 600;
+        }
+        @keyframes ticker {
+            from { transform: translateX(-100%); }
+            to   { transform: translateX(100vw); }
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 140px 0 90px;
+            background: linear-gradient(135deg, #0f2c8f, #1d4ed8);
+            color: #fff;
+            overflow: hidden;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 900; }
+        .hero h2 { font-size: 1.8rem; font-weight: 700; }
+        .hero p  { opacity: .95; line-height: 2; }
+        .hero-image {
+            max-width: 650px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.25);
+        }
+        @media (max-width: 991px) {
+            .hero { text-align: center; padding-top: 160px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero h2 { font-size: 1.4rem; }
+        }
+
+        /* ===== Section title ===== */
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg,#2563eb,#3b82f6);
+            border-radius: 2px;
+        }
+        .section-title p { color: #64748b; margin-top: 10px; }
+
+        /* ===== Service cards ===== */
+        #services { background: #f1f5f9; padding: 80px 0; }
+        .service-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 20px;
+            text-align: center;
+            height: 100%;
+            transition: .35s;
+            box-shadow: 0 4px 20px rgba(0,0,0,.07);
+            border: 1px solid rgba(0,0,0,.05);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(37,99,235,.15);
+        }
+        .service-card i {
+            font-size: 2.4rem;
+            color: #2563eb;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .service-card h5 { font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+        .service-card p  { color: #64748b; font-size: .92rem; margin: 0; }
+
+        /* ===== Features ===== */
+        .features { background: linear-gradient(135deg,#0f2c8f,#1d4ed8); padding: 80px 0; }
+        .features .section-title h2 { color: #fff; }
+        .features .section-title h2::after { background: rgba(255,255,255,.5); }
+        .feature-box {
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 20px;
+            padding: 36px 20px;
+            text-align: center;
+            color: #fff;
+            transition: .35s;
+            backdrop-filter: blur(4px);
+        }
+        .feature-box:hover {
+            background: rgba(255,255,255,.2);
+            transform: translateY(-6px);
+        }
+        .feature-box i {
+            font-size: 2.4rem;
+            margin-bottom: 14px;
+            display: block;
+            color: #bfdbfe;
+        }
+        .feature-box h5 { font-weight: 700; margin: 0; }
+
+        /* ===== Testimonials ===== */
+        .testimonials { background: linear-gradient(180deg,#f8fafc,#ffffff); padding: 80px 0; }
+        .testimonial-card {
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 24px;
+            text-align: center;
+            height: 100%;
+            transition: .35s;
+            border: 1px solid rgba(0,0,0,.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,.06);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.12);
+        }
+        .stars { color: #fbbf24; font-size: 22px; margin-bottom: 15px; letter-spacing: 2px; }
+        .testimonial-card p { color: #555; line-height: 2; min-height: 90px; }
+        .testimonial-card h6 { margin-top: 15px; font-weight: 700; color: #2563eb; }
+
+        /* ===== Pricing ===== */
+        .pricing { background: #f1f5f9; padding: 80px 0; }
+        .price-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 36px 24px;
+            text-align: center;
+            box-shadow: 0 6px 24px rgba(0,0,0,.07);
+            border: 1px solid rgba(0,0,0,.05);
+            transition: .35s;
+            height: 100%;
+        }
+        .price-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(37,99,235,.12); }
+        .price-card h4 { font-weight: 700; color: #1e293b; margin-bottom: 12px; }
+        .price { font-size: 1.5rem; font-weight: 900; color: #2563eb; }
+
+        /* ===== Contact ===== */
+        #contact { background: #fff; padding: 80px 0; }
+        #contact h2 { font-size: 2rem; font-weight: 800; color: #1e293b; }
+        #contact h4 a { color: #2563eb; text-decoration: none; font-weight: 800; }
+        #contact h4 a:hover { text-decoration: underline; }
+        #contact p { color: #64748b; }
+        .contact-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* ===== SEO Content ===== */
+        .seo-content { background: #fff; padding: 70px 0; border-top: 1px solid #e2e8f0; }
+        .seo-content h2 {
+            color: #2563eb;
+            margin: 40px 0 15px;
+            padding-right: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .seo-content h2:first-child { margin-top: 0; }
+        .seo-content h2 i {
+            font-size: 1.8rem;
+            color: #3b82f6;
+            background: #e0e7ff;
+            padding: 10px;
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.05);
+            min-width: 52px;
+            text-align: center;
+        }
+        .seo-content p { line-height: 2.3; color: #555; text-align: justify; margin-right: 55px; }
+        @media (max-width: 768px) {
+            .seo-content h2 i { font-size: 1.4rem; padding: 6px; min-width: 40px; }
+            .seo-content p { margin-right: 0; }
+            .seo-content h2 { flex-wrap: wrap; }
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #0f172a;
+            color: rgba(255,255,255,.75);
+            padding: 50px 0 24px;
+        }
+        .footer-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+        footer p { font-size: .92rem; margin-bottom: 6px; }
+        footer hr { border-color: rgba(255,255,255,.1); margin: 28px 0 18px; }
+        footer .text-center { color: rgba(255,255,255,.55); font-size: .85rem; }
+
         /* ===== FAB ===== */
         .fab-container {
             position: fixed;
@@ -47,13 +291,17 @@
             border-radius: 50%;
             background: linear-gradient(135deg, #2563eb, #3b82f6);
             color: #fff;
-            font-size: 15px;
+            font-size: 26px;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(0,0,0,.25);
             transition: .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .fab-main:hover { transform: scale(1.08); }
+        .fab-main.active { transform: rotate(45deg); }
         .fab-item {
             width: 55px;
             height: 55px;
@@ -70,6 +318,8 @@
             visibility: hidden;
             transform: translateY(20px);
             transition: .3s;
+            border: none;
+            cursor: pointer;
         }
         .fab-container.active .fab-item {
             opacity: 1;
@@ -77,57 +327,11 @@
             transform: translateY(0);
         }
 
-        /* ===== Testimonials ===== */
-        .testimonials { background: linear-gradient(180deg,#f8fafc,#ffffff); }
-        .testimonial-card {
-            background: #fff;
-            padding: 30px 25px;
-            border-radius: 24px;
-            text-align: center;
-            height: 100%;
-            transition: .35s;
-            border: 1px solid rgba(0,0,0,.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,.06);
-        }
-        .testimonial-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,.12);
-        }
-        .stars { color: #fbbf24; font-size: 22px; margin-bottom: 15px; letter-spacing: 2px; }
-        .testimonial-card p { color: #555; line-height: 2; min-height: 120px; }
-        .testimonial-card h6 { margin-top: 15px; font-weight: 700; color: #2563eb; }
-
-        /* ===== SEO Content ===== */
-        .seo-content { background: #fff; padding: 70px 0; }
-        .seo-content h2 {
-            position: relative;
-            color: #2563eb;
-            margin: 40px 0 15px;
-            padding-right: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .seo-content h2 i {
-            font-size: 2rem;
-            color: #3b82f6;
-            background: #e0e7ff;
-            padding: 10px;
-            border-radius: 16px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        .seo-content p { line-height: 2.3; color: #555; text-align: justify; margin-right: 55px; }
-        @media (max-width: 768px) {
-            .seo-content h2 i { font-size: 1.4rem; padding: 6px; }
-            .seo-content p { margin-right: 0; }
-            .seo-content h2 { flex-wrap: wrap; }
-        }
-
-        /* ===== MODAL OVERLAY ===== */
+        /* ===== MODAL ===== */
         .order-modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(10, 20, 50, 0.65);
+            background: rgba(10,20,50,.65);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             z-index: 10000;
@@ -139,10 +343,7 @@
             visibility: hidden;
             transition: opacity .3s, visibility .3s;
         }
-        .order-modal-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
+        .order-modal-overlay.open { opacity: 1; visibility: visible; }
         .order-modal {
             background: #fff;
             border-radius: 24px;
@@ -156,9 +357,7 @@
             transition: transform .35s cubic-bezier(.34,1.56,.64,1);
             box-shadow: 0 30px 80px rgba(0,0,0,.2);
         }
-        .order-modal-overlay.open .order-modal {
-            transform: translateY(0) scale(1);
-        }
+        .order-modal-overlay.open .order-modal { transform: translateY(0) scale(1); }
         .modal-close-btn {
             position: absolute;
             top: 16px;
@@ -178,89 +377,30 @@
             line-height: 1;
         }
         .modal-close-btn:hover { background: #e2e8f0; color: #1e293b; }
-        .modal-header-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 4px;
-        }
-        .modal-header-sub {
-            font-size: .88rem;
-            color: #64748b;
-            margin-bottom: 24px;
-        }
-
-        /* ===== Dynamic fields ===== */
+        .modal-header-title { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+        .modal-header-sub { font-size: .88rem; color: #64748b; margin-bottom: 24px; }
         .dynamic-fields { transition: .25s; }
 
-        /* ===== Contact section buttons ===== */
-        .contact-btns {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+        /* ===== Hero highlight badge ===== */
+        .hero-highlight {
+            display: inline-block;
+            background: rgba(37,99,235,.1);
+            color: #2563eb;
+            border: 1px solid rgba(37,99,235,.15);
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: .95rem;
+            font-weight: 700;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(37,99,235,.08);
         }
-        .hero-highlight{
-    display: inline-block;
-    background: rgba(37,99,235,.1);
-    color: #2563eb;
-    border: 1px solid rgba(37,99,235,.15);
-    padding: 12px 20px;
-    border-radius: 999px;
-    font-size: .95rem;
-    font-weight: 700;
-    margin: 15px 0;
-    box-shadow: 0 4px 15px rgba(37,99,235,.08);
-}
+        .hero-highlight i { margin-left: 6px; }
 
-.hero-highlight i{
-    margin-left: 6px;
-}
-        .hero{
-    padding:120px 0 80px;
-    background:linear-gradient(135deg,#0f2c8f,#1d4ed8);
-    color:#fff;
-    overflow:hidden;
-}
-
-.hero h1{
-    font-size:3rem;
-    font-weight:900;
-}
-
-.hero h2{
-    font-size:1.8rem;
-    font-weight:700;
-}
-
-.hero p{
-    opacity:.95;
-    line-height:2;
-}
-
-.hero-image{
-    max-width:650px;
-    width:100%;
-    border-radius:24px;
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-@media(max-width:991px){
-
-    .hero{
-        text-align:center;
-        padding-top:140px;
-    }
-
-    .hero h1{
-        font-size:2.2rem;
-    }
-
-    .hero h2{
-        font-size:1.4rem;
-    }
-}
+        /* ===== Responsive tweaks ===== */
+        @media (max-width: 576px) {
+            .order-modal { padding: 28px 18px 22px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 
@@ -270,7 +410,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">کافی نت آنلاین کسرا</a>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menu"
+                    aria-controls="menu"
+                    aria-expanded="false"
+                    aria-label="منو">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="menu">
@@ -281,135 +426,113 @@
                     <li class="nav-item"><a class="nav-link" href="#prices">تعرفه‌ها</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">تماس با ما</a></li>
                 </ul>
-                <a href="https://ble.ir/hghanbari65" class="btn btn-success">بله</a>
+                <a href="https://ble.ir/hghanbari65" class="btn btn-success" target="_blank" rel="noopener">بله</a>
             </div>
         </div>
     </nav>
 
-    <div class="news-ticker">
+    <!-- News Ticker -->
+    <div class="news-ticker" aria-label="اخبار">
         <div class="news-ticker-content">
-            ⚡ نصب ویندوز در محل | 📌 ثبت نام سامانه‌های دولتی | 💻 نصب نرم‌افزارهای تخصصی | 🏠 خدمات کامپیوتری در محل | 📞 ۰۹۲۰۴۰۳۶۸۵۸
+            ⚡ نصب ویندوز در محل &nbsp;|&nbsp; 📌 ثبت نام سامانه‌های دولتی &nbsp;|&nbsp; 💻 نصب نرم‌افزارهای تخصصی &nbsp;|&nbsp; 🏠 خدمات کامپیوتری در محل &nbsp;|&nbsp; 📞 ۰۹۲۰۴۰۳۶۸۵۸ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 
-  <!-- Hero -->
-<section class="hero">
-    <div class="container">
-        <div class="row align-items-center gy-5">
-
-            <!-- متن -->
-            <div class="col-lg-5 text-center text-lg-end">
-
-                <span class="badge bg-primary px-4 py-3 mb-3">
-                    سریع، مطمئن و آنلاین
-                </span>
-
-                <h1 class="display-4 fw-bold mb-3">
-                    کافی نت آنلاین کسرا
-                </h1>
-
-                <div class="text-warning fw-bold mb-3">
-                    ⚡ انجام خدمات اینترنتی و کامپیوتری در محل
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+                <div class="col-lg-5 text-center text-lg-end">
+                    <span class="badge bg-primary px-4 py-3 mb-3">
+                        سریع، مطمئن و آنلاین
+                    </span>
+                    <h1 class="display-4 fw-bold mb-3">کافی نت آنلاین کسرا</h1>
+                    <div class="text-warning fw-bold mb-3">
+                        ⚡ انجام خدمات اینترنتی و کامپیوتری در محل
+                    </div>
+                    <h2 class="h3 mb-4">
+                        ثبت‌نام اینترنتی، خدمات دولتی و نصب ویندوز در محل
+                    </h2>
+                    <p class="lead mb-4">
+                        انجام انواع ثبت‌نام‌های اینترنتی، خدمات دولت الکترونیک،
+                        ثبت‌نام کارت سوخت، سامانه املاک و اسکان،
+                        نصب ویندوز، نصب نرم‌افزارهای عمومی و تخصصی
+                        و رفع مشکلات کامپیوتری در محل شما.
+                    </p>
+                    <div class="d-flex gap-2 justify-content-center justify-content-lg-start flex-wrap">
+                        <a href="tel:09204036858" class="btn btn-success btn-lg">
+                            <i class="fa-solid fa-phone me-1"></i> تماس فوری
+                        </a>
+                        <button onclick="openOrderModal()" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-file-circle-plus me-1"></i> ثبت درخواست آنلاین
+                        </button>
+                    </div>
                 </div>
-
-                <h2 class="h3 mb-4">
-                    ثبت‌نام اینترنتی، خدمات دولتی و نصب ویندوز در محل
-                </h2>
-
-                <p class="lead mb-4">
-                    انجام انواع ثبت‌نام‌های اینترنتی، خدمات دولت الکترونیک،
-                    ثبت‌نام کارت سوخت، سامانه املاک و اسکان،
-                    نصب ویندوز، نصب نرم‌افزارهای عمومی و تخصصی
-                    و رفع مشکلات کامپیوتری در محل شما.
-                </p>
-
-                <div class="d-flex gap-2 justify-content-center justify-content-lg-start flex-wrap">
-
-                    <a href="tel:09204036858"
-                       class="btn btn-success btn-lg">
-                        <i class="fa-solid fa-phone"></i>
-                        تماس فوری
-                    </a>
-
-                    <button onclick="openOrderModal()"
-                            class="btn btn-primary btn-lg">
-                        <i class="fa-solid fa-file-circle-plus"></i>
-                        ثبت درخواست آنلاین
-                    </button>
-
+                <div class="col-lg-7 text-center">
+                    <img src="hero.webp" class="img-fluid hero-image" alt="خدمات اینترنتی و کامپیوتری کسرا">
                 </div>
-
             </div>
-
-            <!-- تصویر -->
-            <div class="col-lg-7 text-center">
-                <img src="hero.webp"
-                     class="img-fluid hero-image"
-                     alt="خدمات اینترنتی و کامپیوتری">
-            </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Services -->
     <section id="services" class="py-5">
-        <div class="container">
+        <div class="container py-4">
             <div class="section-title">
                 <h2>خدمات ما</h2>
                 <p>مجموعه کاملی از خدمات اینترنتی و کامپیوتری</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-file-signature"></i>
                         <h5>ثبت نام اینترنتی</h5>
                         <p>ثبت نام سامانه‌ها و خدمات آنلاین</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-building-columns"></i>
                         <h5>دولت الکترونیک</h5>
                         <p>کاتب، خودنویس، املاک و اسکان</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-graduation-cap"></i>
                         <h5>ثبت نام آزمون‌ها</h5>
                         <p>کنکور، استخدامی و سازمان‌ها</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-school"></i>
                         <h5>خدمات آموزشی</h5>
                         <p>مدارس، دانشگاه‌ها و انتقالی</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-brands fa-windows"></i>
                         <h5>نصب ویندوز</h5>
-                        <p>نصب ویندوز در محل</p>
+                        <p>نصب ویندوز ۱۰ و ۱۱ در محل</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-gear"></i>
                         <h5>نصب نرم افزار</h5>
                         <p>عمومی و تخصصی</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
                         <h5>رفع مشکلات سیستم</h5>
                         <p>عیب یابی و تعمیر نرم افزاری</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="service-card">
                         <i class="fa-solid fa-shield-heart"></i>
                         <h5>بیمه و تامین اجتماعی</h5>
@@ -422,30 +545,30 @@
 
     <!-- Features -->
     <section id="features" class="features">
-        <div class="container">
+        <div class="container py-4">
             <div class="section-title">
                 <h2>چرا ما را انتخاب کنید؟</h2>
             </div>
-            <div class="row">
-                <div class="col-md-3">
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
                     <div class="feature-box">
                         <i class="fa-solid fa-bolt"></i>
                         <h5>پاسخگویی سریع</h5>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="feature-box">
                         <i class="fa-solid fa-shield"></i>
                         <h5>خدمات مطمئن</h5>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="feature-box">
                         <i class="fa-solid fa-headset"></i>
                         <h5>پشتیبانی دائمی</h5>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-6">
                     <div class="feature-box">
                         <i class="fa-solid fa-house"></i>
                         <h5>اعزام در محل</h5>
@@ -456,7 +579,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials py-5">
+    <section class="testimonials">
         <div class="container">
             <div class="section-title">
                 <h2>نظرات مشتریان</h2>
@@ -493,22 +616,26 @@
         <div class="container">
             <div class="section-title">
                 <h2>تعرفه خدمات</h2>
+                <p>قیمت‌های شفاف، بدون هزینه پنهان</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="price-card">
+                        <i class="fa-solid fa-file-signature fa-2x mb-3 text-primary"></i>
                         <h4>ثبت نام اینترنتی</h4>
                         <div class="price">از ۱۵۰ هزار تومان</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="price-card">
+                        <i class="fa-brands fa-windows fa-2x mb-3 text-primary"></i>
                         <h4>نصب ویندوز</h4>
                         <div class="price">از ۳۰۰ هزار تومان</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="price-card">
+                        <i class="fa-solid fa-gear fa-2x mb-3 text-primary"></i>
                         <h4>نصب نرم افزار</h4>
                         <div class="price">از ۱۰۰ هزار تومان</div>
                     </div>
@@ -519,13 +646,12 @@
 
     <!-- Contact -->
     <section id="contact" class="py-5">
-        <div class="container text-center">
+        <div class="container text-center py-3">
             <h2 class="mb-4">تماس با ما</h2>
             <h4><a href="tel:09204036858">۰۹۲۰۴۰۳۶۸۵۸</a></h4>
             <p>پاسخگویی همه روزه از ساعت ۸ صبح تا ۲۲ شب</p>
-            <!-- ✅ دو دکمه کنار هم -->
             <div class="contact-btns">
-                <a href="https://ble.ir/hghanbari65" class="btn btn-success btn-lg">
+                <a href="https://ble.ir/hghanbari65" class="btn btn-success btn-lg" target="_blank" rel="noopener">
                     💬 ثبت درخواست در بله
                 </a>
                 <button onclick="openOrderModal()" class="btn btn-primary btn-lg">
@@ -547,7 +673,7 @@
             </p>
             <h2><i class="fab fa-windows"></i> نصب ویندوز در محل</h2>
             <p>
-                خدمات نصب ویندوز در محل شامل نصب ویندوز 10 و 11، نصب درایورها،
+                خدمات نصب ویندوز در محل شامل نصب ویندوز ۱۰ و ۱۱، نصب درایورها،
                 بهینه‌سازی سیستم و نصب نرم‌افزارهای عمومی و تخصصی است. این خدمات
                 بدون نیاز به جابه‌جایی کامپیوتر یا لپ‌تاپ در محل شما انجام می‌شود.
             </p>
@@ -568,7 +694,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-4">
                     <div class="footer-title">کافی نت آنلاین کسرا | خدمات کامپیوتری و ثبت نام اینترنتی</div>
                     <p>خدمات اینترنتی و کامپیوتری در محل</p>
@@ -585,53 +711,62 @@
                 </div>
             </div>
             <hr>
-            <div class="text-center">© تمامی حقوق محفوظ است.</div>
+            <div class="text-center">© تمامی حقوق محفوظ است — کافی نت آنلاین کسرا</div>
         </div>
     </footer>
 
     <!-- FAB Menu -->
-    <div class="fab-container">
-        <a href="https://ble.ir/hghanbari65" class="fab-item" title="پیام در بله">💬</a>
-        <a href="tel:09204036858" class="fab-item" title="تماس">📞</a>
-        <button onclick="openOrderModal(); toggleFab();" class="fab-item" title="ثبت سفارش" style="border:none;cursor:pointer;">📝</button>
-        <button class="fab-main" onclick="toggleFab()">+</button>
+    <div class="fab-container" id="fabContainer">
+        <a href="https://ble.ir/hghanbari65" class="fab-item" title="پیام در بله" target="_blank" rel="noopener" aria-label="ارسال پیام در بله">💬</a>
+        <a href="tel:09204036858" class="fab-item" title="تماس" aria-label="تماس تلفنی">📞</a>
+        <button onclick="openOrderModal(); closeFab();" class="fab-item" title="ثبت سفارش" aria-label="ثبت درخواست آنلاین">📝</button>
+        <button class="fab-main" id="fabMainBtn" onclick="toggleFab()" aria-label="منوی تماس سریع" aria-expanded="false">＋</button>
     </div>
 
-    <!-- =====================================================
-         MODAL — فرم ثبت درخواست
-         ===================================================== -->
-    <div class="order-modal-overlay" id="orderModalOverlay" onclick="handleOverlayClick(event)">
-        <div class="order-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <!-- Modal — فرم ثبت درخواست -->
+    <div class="order-modal-overlay"
+         id="orderModalOverlay"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modalTitle"
+         onclick="handleOverlayClick(event)">
+        <div class="order-modal">
 
-            <button class="modal-close-btn" onclick="closeOrderModal()" title="بستن">✕</button>
+            <button class="modal-close-btn" onclick="closeOrderModal()" title="بستن" aria-label="بستن">✕</button>
 
             <div class="modal-header-title" id="modalTitle">📝 ثبت درخواست</div>
             <div class="modal-header-sub">اطلاعات خود را وارد کنید، در اسرع وقت تماس می‌گیریم</div>
 
-            <!-- ✅ action رو با endpoint فرم‌اسپری خودت عوض کن -->
             <form id="orderForm"
                   action="https://formspree.io/f/xvzynvwe"
-                  method="POST">
+                  method="POST"
+                  novalidate>
 
                 <input type="hidden" name="_subject" value="درخواست جدید — کافی نت کسرا">
                 <input type="hidden" name="_captcha" value="false">
 
                 <!-- نام -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">نام و نام خانوادگی <span class="text-danger">*</span></label>
-                    <input type="text" name="name" class="form-control" placeholder="مثلاً: علی رضایی" required>
+                    <label class="form-label fw-bold" for="inputName">نام و نام خانوادگی <span class="text-danger">*</span></label>
+                    <input type="text" id="inputName" name="name" class="form-control"
+                           placeholder="مثلاً: علی رضایی" required autocomplete="name">
+                    <div class="invalid-feedback">لطفاً نام خود را وارد کنید.</div>
                 </div>
 
                 <!-- شماره تماس -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">شماره تماس <span class="text-danger">*</span></label>
-                    <input type="tel" name="phone" class="form-control" placeholder="09xxxxxxxxx" required
-                           pattern="^09[0-9]{9}$" title="شماره موبایل معتبر وارد کنید">
+                    <label class="form-label fw-bold" for="inputPhone">شماره تماس <span class="text-danger">*</span></label>
+                    <input type="tel" id="inputPhone" name="phone" class="form-control"
+                           placeholder="09xxxxxxxxx" required
+                           pattern="^09[0-9]{9}$"
+                           title="شماره موبایل معتبر وارد کنید"
+                           autocomplete="tel">
+                    <div class="invalid-feedback">شماره موبایل معتبر وارد کنید (مثلاً: ۰۹۱۲۳۴۵۶۷۸۹).</div>
                 </div>
 
                 <!-- انتخاب خدمت -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">نوع خدمت <span class="text-danger">*</span></label>
+                    <label class="form-label fw-bold" for="serviceSelect">نوع خدمت <span class="text-danger">*</span></label>
                     <select name="service" class="form-select" id="serviceSelect" required onchange="showFields(this.value)">
                         <option value="">— انتخاب کنید —</option>
                         <option value="ثبت‌نام اینترنتی">ثبت‌نام اینترنتی</option>
@@ -643,32 +778,33 @@
                         <option value="رفع مشکل سیستم">رفع مشکل سیستم</option>
                         <option value="سایر">سایر</option>
                     </select>
+                    <div class="invalid-feedback">لطفاً نوع خدمت را انتخاب کنید.</div>
                 </div>
 
                 <!-- فیلدهای شرطی -->
-
                 <div id="fields-ثبت‌نام اینترنتی" class="dynamic-fields d-none">
                     <div class="alert alert-info py-2 mb-3 small">
                         📌 لطفاً مدارک مورد نیاز (کارت ملی، شناسنامه) را آماده کنید.
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">نام سامانه یا سایت مورد نظر</label>
-                        <input type="text" name="site_name" class="form-control" placeholder="مثلاً: سامانه ثبت احوال">
+                        <label class="form-label" for="site_name">نام سامانه یا سایت مورد نظر</label>
+                        <input type="text" id="site_name" name="site_name" class="form-control"
+                               placeholder="مثلاً: سامانه ثبت احوال">
                     </div>
                 </div>
 
                 <div id="fields-نصب ویندوز" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">نوع دستگاه</label>
-                        <select name="device_type" class="form-select">
+                        <label class="form-label" for="device_type">نوع دستگاه</label>
+                        <select id="device_type" name="device_type" class="form-select">
                             <option value="">انتخاب کنید</option>
                             <option>لپ‌تاپ</option>
                             <option>کامپیوتر رومیزی</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">نسخه ویندوز مورد نظر</label>
-                        <select name="windows_version" class="form-select">
+                        <label class="form-label" for="windows_version">نسخه ویندوز مورد نظر</label>
+                        <select id="windows_version" name="windows_version" class="form-select">
                             <option value="">انتخاب کنید</option>
                             <option>ویندوز ۱۱</option>
                             <option>ویندوز ۱۰</option>
@@ -676,26 +812,27 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">آدرس تقریبی (برای اعزام در محل)</label>
-                        <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                        <label class="form-label" for="address_win">آدرس تقریبی (برای اعزام در محل)</label>
+                        <input type="text" id="address_win" name="address" class="form-control" placeholder="شهر / محله">
                     </div>
                 </div>
 
                 <div id="fields-نصب نرم‌افزار" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">نام نرم‌افزار(ها)</label>
-                        <input type="text" name="software_names" class="form-control" placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
+                        <label class="form-label" for="software_names">نام نرم‌افزار(ها)</label>
+                        <input type="text" id="software_names" name="software_names" class="form-control"
+                               placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">آدرس تقریبی</label>
-                        <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                        <label class="form-label" for="address_sw">آدرس تقریبی</label>
+                        <input type="text" id="address_sw" name="address" class="form-control" placeholder="شهر / محله">
                     </div>
                 </div>
 
                 <div id="fields-دولت الکترونیک" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">نوع خدمت دولتی</label>
-                        <select name="gov_service" class="form-select">
+                        <label class="form-label" for="gov_service">نوع خدمت دولتی</label>
+                        <select id="gov_service" name="gov_service" class="form-select">
                             <option value="">انتخاب کنید</option>
                             <option>کاتب (دفاتر اسناد)</option>
                             <option>خودنویس</option>
@@ -707,15 +844,16 @@
 
                 <div id="fields-ثبت‌نام آزمون" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">نام آزمون</label>
-                        <input type="text" name="exam_name" class="form-control" placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
+                        <label class="form-label" for="exam_name">نام آزمون</label>
+                        <input type="text" id="exam_name" name="exam_name" class="form-control"
+                               placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
                     </div>
                 </div>
 
                 <div id="fields-بیمه" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">نوع خدمت بیمه</label>
-                        <select name="insurance_service" class="form-select">
+                        <label class="form-label" for="insurance_service">نوع خدمت بیمه</label>
+                        <select id="insurance_service" name="insurance_service" class="form-select">
                             <option value="">انتخاب کنید</option>
                             <option>ثبت‌نام بیمه تامین اجتماعی</option>
                             <option>استعلام بیمه</option>
@@ -727,41 +865,41 @@
 
                 <div id="fields-رفع مشکل سیستم" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">شرح مشکل</label>
-                        <textarea name="problem_desc" class="form-control" rows="3"
+                        <label class="form-label" for="problem_desc">شرح مشکل</label>
+                        <textarea id="problem_desc" name="problem_desc" class="form-control" rows="3"
                                   placeholder="مشکل سیستم را توضیح دهید..."></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">آدرس تقریبی</label>
-                        <input type="text" name="address" class="form-control" placeholder="شهر / محله">
+                        <label class="form-label" for="address_fix">آدرس تقریبی</label>
+                        <input type="text" id="address_fix" name="address" class="form-control" placeholder="شهر / محله">
                     </div>
                 </div>
 
                 <div id="fields-سایر" class="dynamic-fields d-none">
                     <div class="mb-3">
-                        <label class="form-label">توضیحات</label>
-                        <textarea name="description" class="form-control" rows="3"
+                        <label class="form-label" for="description">توضیحات</label>
+                        <textarea id="description" name="description" class="form-control" rows="3"
                                   placeholder="خدمت مورد نظر را توضیح دهید..."></textarea>
                     </div>
                 </div>
 
                 <!-- توضیحات تکمیلی -->
                 <div class="mb-4">
-                    <label class="form-label fw-bold">توضیحات تکمیلی</label>
-                    <textarea name="notes" class="form-control" rows="2"
+                    <label class="form-label fw-bold" for="notes">توضیحات تکمیلی</label>
+                    <textarea id="notes" name="notes" class="form-control" rows="2"
                               placeholder="هر نکته‌ای که لازم است بدانیم..."></textarea>
                 </div>
 
                 <!-- دکمه ارسال -->
                 <button type="submit" class="btn btn-primary w-100 btn-lg" id="submitBtn">
                     <span id="btnText">ارسال درخواست</span>
-                    <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ms-2"></span>
+                    <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
                 </button>
 
-                <div id="successMsg" class="alert alert-success mt-3 d-none text-center">
+                <div id="successMsg" class="alert alert-success mt-3 d-none text-center" role="alert">
                     ✅ درخواست شما ثبت شد. به زودی با شما تماس می‌گیریم.
                 </div>
-                <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center">
+                <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center" role="alert">
                     ❌ مشکلی پیش آمد. لطفاً مستقیم با شماره تماس بگیرید.
                 </div>
 
@@ -774,25 +912,39 @@
     <script>
         /* ---- FAB ---- */
         function toggleFab() {
-            document.querySelector('.fab-container').classList.toggle('active');
+            const fab = document.getElementById('fabContainer');
+            const btn = document.getElementById('fabMainBtn');
+            const isActive = fab.classList.toggle('active');
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            btn.textContent = isActive ? '✕' : '＋';
+        }
+        function closeFab() {
+            const fab = document.getElementById('fabContainer');
+            const btn = document.getElementById('fabMainBtn');
+            fab.classList.remove('active');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.textContent = '＋';
         }
 
-        /* ---- Modal open / close ---- */
+        /* ---- Modal ---- */
         function openOrderModal() {
             document.getElementById('orderModalOverlay').classList.add('open');
             document.body.style.overflow = 'hidden';
+            // Focus first input for accessibility
+            setTimeout(() => {
+                const firstInput = document.querySelector('#orderForm input, #orderForm select');
+                if (firstInput) firstInput.focus();
+            }, 350);
         }
         function closeOrderModal() {
             document.getElementById('orderModalOverlay').classList.remove('open');
             document.body.style.overflow = '';
         }
-        // کلیک روی پس‌زمینه = بستن
         function handleOverlayClick(e) {
-            if (e.target === document.getElementById('orderModalOverlay')) {
-                closeOrderModal();
-            }
+            if (e.target === document.getElementById('orderModalOverlay')) closeOrderModal();
         }
-        // Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeOrderModal();
         });
@@ -812,6 +964,14 @@
         /* ---- ارسال فرم ---- */
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // اعتبارسنجی بومی Bootstrap
+            if (!this.checkValidity()) {
+                this.classList.add('was-validated');
+                return;
+            }
+            this.classList.remove('was-validated');
+
             const btn     = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const spinner = document.getElementById('btnSpinner');
@@ -833,8 +993,8 @@
                 if (res.ok) {
                     success.classList.remove('d-none');
                     this.reset();
+                    this.classList.remove('was-validated');
                     showFields('');
-                    // بستن مودال بعد از ۳ ثانیه
                     setTimeout(closeOrderModal, 3000);
                 } else {
                     error.classList.remove('d-none');
@@ -845,6 +1005,16 @@
                 btn.disabled = false;
                 btnText.textContent = 'ارسال درخواست';
                 spinner.classList.add('d-none');
+            }
+        });
+
+        /* ---- Navbar scroll effect ---- */
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,.3)';
+            } else {
+                nav.style.boxShadow = 'none';
             }
         });
     </script>
