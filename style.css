@@ -41,6 +41,12 @@ body{
         .navbar-brand { font-size: 1.2rem; font-weight: 800; color: #fff !important; }
         .nav-link { color: rgba(255,255,255,.85) !important; font-weight: 600; padding: 6px 14px !important; border-radius: 8px; transition: .2s; }
         .nav-link:hover { color: #fff !important; background: rgba(255,255,255,.1); }
+        .navbar .nav-link i{
+            font-size:14px;
+            width:18px;
+            text-align:center;
+            margin-left:6px;
+        }
         /* ===== News ticker ===== */
         .news-ticker { background: #1d4ed8; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; position: fixed; top: 62px; width: 100%; z-index: 1029; }
         .news-ticker-content { display: inline-block; animation: ticker 28s linear infinite; font-size: .9rem; font-weight: 600; }
