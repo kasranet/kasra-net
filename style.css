@@ -163,3 +163,81 @@ body{
         }
 
 .hero-badge{text-align:right}
+/* ===== KAPI ===== */
+
+.kapi-hero{
+    max-height:550px;
+}
+
+.kapi-side{
+    max-width:250px;
+}
+
+.kapi-speech{
+    position:absolute;
+    top:30px;
+    left:20px;
+    background:#fff;
+    padding:15px 20px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    font-weight:600;
+    max-width:260px;
+    z-index:10;
+}
+
+.kapi-intro{
+    background:#f8fbff;
+}
+
+.kapi-service-box{
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    font-weight:600;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.kapi-floating{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:9999;
+    cursor:pointer;
+    text-align:center;
+}
+
+.kapi-floating img{
+    width:85px;
+    filter:drop-shadow(0 8px 20px rgba(0,0,0,.25));
+    transition:.3s;
+}
+
+.kapi-floating img:hover{
+    transform:translateY(-8px);
+}
+
+.kapi-floating-text{
+    background:#0d6efd;
+    color:#fff;
+    border-radius:30px;
+    padding:6px 14px;
+    margin-top:8px;
+    font-size:13px;
+    font-weight:700;
+}
+
+@media(max-width:768px){
+
+    .kapi-speech{
+        position:relative;
+        left:auto;
+        top:auto;
+        margin:0 auto 20px;
+    }
+
+    .kapi-floating img{
+        width:65px;
+    }
+}
