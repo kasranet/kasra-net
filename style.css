@@ -163,14 +163,14 @@ body{
         }
 
 .hero-badge{text-align:right}
-.service-card .service-icon{
-    width: 90px;
-    height: 90px;
+.service-icon{
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     margin-bottom: 15px;
-    transition: .3s ease;
 }
 
-.service-card:hover .service-icon{
-    transform: scale(1.08);
+.service-card img{
+    display:block;
+    margin:0 auto 15px;
 }
