@@ -30,9 +30,6 @@
     font-display:swap;
 }
 
-body{
-        font-family:'Vazirmatn',sans-serif;
-}
 *, *::before, *::after { box-sizing: border-box; }
         body { font-family: 'Vazirmatn', sans-serif; background: #f8fafc; color: #1e293b; margin: 0; }
 
