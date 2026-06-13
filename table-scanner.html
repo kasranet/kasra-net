@@ -1,63 +1,300 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>GapGPT AI Chat</title>
-  <style>
-    body { font-family: sans-serif; background:#f5f5f5; padding:20px; }
-    .box { max-width:700px; margin:auto; background:#fff; padding:20px; border-radius:10px; }
-    textarea { width:100%; height:100px; }
-    button { padding:10px 20px; margin-top:10px; cursor:pointer; }
-    #res { margin-top:20px; white-space:pre-wrap; background:#111; color:#0f0; padding:10px; border-radius:8px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تبدیل عکس جدول به اکسل - نسخه حرفه‌ای</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{background:#f8fafc}
+.upload-zone{
+    border:2px dashed #3b82f6;
+    padding:40px;
+    border-radius:16px;
+    text-align:center;
+    cursor:pointer;
+    background:#eff6ff;
+    transition:.2s;
+}
+.upload-zone.drag-over{background:#dbeafe}
+#previewBox{display:none}
+#resultBox{display:none}
+#loader{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    color:#fff;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+table td{min-width:80px}
+</style>
 </head>
+
 <body>
 
-<div class="box">
-  <h2>چت با هوش مصنوعی</h2>
+<div class="container py-5">
 
-  <textarea id="input" placeholder="پیام خود را بنویس..."></textarea>
-  <br>
-  <button onclick="send()">ارسال</button>
+<h3 class="mb-3">📊 تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</h3>
 
-  <div id="res"></div>
+<!-- Upload -->
+<div class="upload-zone" id="uploadZone">
+    <input type="file" id="fileInput" accept="image/*"
+        style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+    <i class="fa fa-cloud-upload fa-2x"></i>
+    <div>آپلود یا Drag & Drop تصویر</div>
+</div>
+
+<!-- Preview -->
+<div id="previewBox" class="mt-3 text-center">
+    <img id="previewImg" style="max-width:100%;border-radius:12px">
+    <div class="mt-2">
+        <button class="btn btn-primary" onclick="analyzeImage()">تحلیل جدول</button>
+        <button class="btn btn-secondary" onclick="resetAll()">حذف</button>
+    </div>
+</div>
+
+<!-- Error -->
+<div id="errorBox" class="alert alert-danger mt-3 d-none"></div>
+
+<!-- Result -->
+<div id="resultBox" class="mt-4"></div>
+
+</div>
+
+<!-- Loader -->
+<div id="loader" class="d-flex">
+    <div class="text-center">
+        <div class="spinner-border mb-2"></div>
+        <div>در حال پردازش...</div>
+    </div>
 </div>
 
 <script>
-const WORKER_URL = "https://kasrakafinet.workers.dev";
+/* =====================
+   CONFIG
+===================== */
+const WORKER_URL = "https://kasrakafinet.hosseinghanbari08.workers.dev";
 
-async function send() {
-  const text = document.getElementById("input").value;
-  const resBox = document.getElementById("res");
+/* =====================
+   GLOBALS
+===================== */
+let imageBase64 = null;
+let mediaType = "image/jpeg";
+let tableData = [];
 
-  resBox.innerText = "در حال پاسخ... ⏳";
+/* =====================
+   UPLOAD HANDLER
+===================== */
+const fileInput = document.getElementById("fileInput");
+const uploadZone = document.getElementById("uploadZone");
 
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer YOUR_GAPGPT_API_KEY"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "user", content: text }
-        ]
-      })
+fileInput.addEventListener("change", e=>{
+    if(e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+uploadZone.addEventListener("dragover", e=>{
+    e.preventDefault();
+    uploadZone.classList.add("drag-over");
+});
+
+uploadZone.addEventListener("dragleave", ()=>{
+    uploadZone.classList.remove("drag-over");
+});
+
+uploadZone.addEventListener("drop", e=>{
+    e.preventDefault();
+    uploadZone.classList.remove("drag-over");
+    handleFile(e.dataTransfer.files[0]);
+});
+
+/* =====================
+   IMAGE COMPRESS (IMPORTANT)
+===================== */
+function compressImage(file, cb){
+    const reader = new FileReader();
+
+    reader.onload = e=>{
+        const img = new Image();
+
+        img.onload = ()=>{
+            const canvas = document.createElement("canvas");
+
+            const MAX_WIDTH = 1200;
+            const scale = MAX_WIDTH / img.width;
+
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scale;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+            const compressed = canvas.toDataURL("image/jpeg",0.7);
+            cb(compressed);
+        };
+
+        img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+/* =====================
+   HANDLE FILE
+===================== */
+function handleFile(file){
+    hideError();
+
+    if(!file.type.startsWith("image/")){
+        return showError("فقط تصویر مجاز است");
+    }
+
+    compressImage(file, (compressed)=>{
+
+        imageBase64 = compressed.split(",")[1];
+        mediaType = "image/jpeg";
+
+        document.getElementById("previewImg").src = compressed;
+        document.getElementById("previewBox").style.display = "block";
+        uploadZone.style.display = "none";
+    });
+}
+
+/* =====================
+   RESET
+===================== */
+function resetAll(){
+    imageBase64 = null;
+    fileInput.value = "";
+    document.getElementById("previewBox").style.display = "none";
+    uploadZone.style.display = "block";
+    document.getElementById("resultBox").style.display = "none";
+}
+
+/* =====================
+   ANALYZE IMAGE
+===================== */
+async function analyzeImage(){
+
+    if(!imageBase64){
+        return showError("اول عکس آپلود کن");
+    }
+
+    setLoading(true);
+    hideError();
+
+    const controller = new AbortController();
+    const timeout = setTimeout(()=>controller.abort(),30000);
+
+    try{
+
+        const res = await fetch(WORKER_URL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                imageBase64,
+                mediaType,
+                userPrompt:"این تصویر جدول است. آن را به JSON تبدیل کن"
+            }),
+            signal:controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        const text = await res.text();
+
+        if(!res.ok){
+            throw new Error("Server error: "+res.status);
+        }
+
+        let data;
+        try{
+            data = JSON.parse(text);
+        }catch{
+            throw new Error("پاسخ سرور خراب است");
+        }
+
+        const raw = data?.data?.choices?.[0]?.message?.content || "";
+
+        const clean = raw.replace(/```json|```/g,"").trim();
+
+        const parsed = JSON.parse(clean);
+
+        tableData = [parsed.headers, ...parsed.rows];
+
+        renderTable(parsed.headers, parsed.rows);
+
+    }catch(err){
+        if(err.name==="AbortError"){
+            showError("زمان پردازش تمام شد");
+        }else{
+            showError(err.message);
+        }
+    }finally{
+        setLoading(false);
+    }
+}
+
+/* =====================
+   RENDER TABLE
+===================== */
+function renderTable(headers, rows){
+
+    let html = `<div class="table-responsive">
+    <table class="table table-bordered">`;
+
+    html += "<thead><tr>";
+    headers.forEach(h=>{
+        html += `<th>${h}</th>`;
+    });
+    html += "</tr></thead><tbody>";
+
+    rows.forEach((row,i)=>{
+        html += "<tr>";
+
+        headers.forEach((_,j)=>{
+            html += `<td contenteditable oninput="edit(${i+1},${j},this)">
+                ${row[j]||""}
+            </td>`;
+        });
+
+        html += "</tr>";
     });
 
-    if (!res.ok) throw new Error("Request Failed");
+    html += "</tbody></table></div>";
 
-    const data = await res.json();
+    document.getElementById("resultBox").innerHTML = html;
+    document.getElementById("resultBox").style.display="block";
+}
 
-    const answer = data.choices?.[0]?.message?.content || "پاسخی دریافت نشد";
+function edit(r,c,el){
+    if(!tableData[r]) tableData[r]=[];
+    tableData[r][c]=el.innerText;
+}
 
-    resBox.innerText = answer;
+/* =====================
+   UI HELPERS
+===================== */
+function showError(msg){
+    const box=document.getElementById("errorBox");
+    box.classList.remove("d-none");
+    box.innerText=msg;
+}
 
-  } catch (err) {
-    resBox.innerText = "خطا در ارتباط: " + err.message;
-  }
+function hideError(){
+    document.getElementById("errorBox").classList.add("d-none");
+}
+
+function setLoading(state){
+    document.getElementById("loader").style.display =
+        state ? "flex":"none";
 }
 </script>
 
