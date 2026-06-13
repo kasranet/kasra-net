@@ -5,77 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>📊 تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</title>
 
-<!-- Excel Library -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 <style>
+
 body{
-    font-family:tahoma;
-    direction:rtl;
-    background:#f4f6fa;
-    padding:40px;
-    text-align:center;
+font-family:tahoma;
+direction:rtl;
+background:#f4f6fa;
+padding:40px;
+text-align:center;
 }
 
 h2{
-    margin-bottom:30px;
+margin-bottom:30px;
 }
 
 #drop-area{
-    border:2px dashed #6c757d;
-    padding:40px;
-    background:white;
-    cursor:pointer;
-    border-radius:12px;
-    transition:0.3s;
+border:2px dashed #6c757d;
+padding:40px;
+background:white;
+cursor:pointer;
+border-radius:12px;
+transition:0.3s;
 }
 
 #drop-area:hover{
-    background:#f1f3f5;
+background:#f1f3f5;
 }
 
 #preview{
-    max-width:400px;
-    margin-top:20px;
-    display:none;
-    border-radius:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+max-width:400px;
+margin-top:20px;
+display:none;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 button{
-    padding:12px 25px;
-    margin:15px;
-    font-size:16px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    transition:0.3s;
+padding:12px 25px;
+margin:15px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
 }
 
 #analyzeBtn{
-    background:#007bff;
-    color:white;
+background:#007bff;
+color:white;
 }
 
 #analyzeBtn:hover{
-    background:#0056d2;
+background:#0056d2;
 }
 
 #removeBtn{
-    background:#dc3545;
-    color:white;
+background:#dc3545;
+color:white;
 }
 
 #removeBtn:hover{
-    background:#a71d2a;
+background:#a71d2a;
 }
 
 #loading{
-    display:none;
-    font-size:18px;
-    color:#007bff;
-    margin-top:20px;
+display:none;
+font-size:18px;
+color:#007bff;
+margin-top:20px;
 }
+
 </style>
 </head>
 
@@ -84,12 +85,12 @@ button{
 <h2>📊 تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</h2>
 
 <div id="drop-area">
-    آپلود یا Drag & Drop تصویر
-    <br><br>
-    <input type="file" id="fileInput" accept="image/*" hidden />
+آپلود یا Drag & Drop تصویر
+<br><br>
+<input type="file" id="fileInput" accept="image/*" hidden />
 </div>
 
-<img id="preview" />
+<img id="preview"/>
 
 <br>
 
@@ -109,173 +110,159 @@ const loading = document.getElementById("loading");
 
 let selectedFile = null;
 
-/* ============================= */
-/* Upload & Drag Drop */
-/* ============================= */
+dropArea.onclick = ()=>fileInput.click();
 
-dropArea.onclick = () => fileInput.click();
-
-fileInput.onchange = () => {
-    handleFile(fileInput.files[0]);
+fileInput.onchange = ()=>{
+handleFile(fileInput.files[0]);
 };
 
-dropArea.addEventListener("dragover", e=>{
-    e.preventDefault();
+dropArea.addEventListener("dragover",e=>{
+e.preventDefault();
 });
 
-dropArea.addEventListener("drop", e=>{
-    e.preventDefault();
-    handleFile(e.dataTransfer.files[0]);
+dropArea.addEventListener("drop",e=>{
+e.preventDefault();
+handleFile(e.dataTransfer.files[0]);
 });
 
 function handleFile(file){
-    if(!file || !file.type.startsWith("image/")){
-        alert("فقط فایل تصویری مجاز است");
-        return;
-    }
 
-    selectedFile = file;
-
-    const reader = new FileReader();
-    reader.onload = ()=>{
-        preview.src = reader.result;
-        preview.style.display="block";
-    };
-    reader.readAsDataURL(file);
+if(!file || !file.type.startsWith("image/")){
+alert("فقط فایل تصویری مجاز است");
+return;
 }
 
-/* ============================= */
-/* Image Compression (Speed Boost) */
-/* ============================= */
+selectedFile = file;
+
+const reader = new FileReader();
+
+reader.onload = ()=>{
+preview.src = reader.result;
+preview.style.display="block";
+};
+
+reader.readAsDataURL(file);
+
+}
 
 async function compressImage(file){
 
-    const bitmap = await createImageBitmap(file);
+const bitmap = await createImageBitmap(file);
 
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
 
-    const maxWidth = 1200;
+const maxWidth = 1200;
 
-    let width = bitmap.width;
-    let height = bitmap.height;
+let width = bitmap.width;
+let height = bitmap.height;
 
-    if(width > maxWidth){
-        height *= maxWidth / width;
-        width = maxWidth;
-    }
+if(width>maxWidth){
+height*=maxWidth/width;
+width=maxWidth;
+}
 
-    canvas.width = width;
-    canvas.height = height;
+canvas.width=width;
+canvas.height=height;
 
-    ctx.drawImage(bitmap,0,0,width,height);
+ctx.drawImage(bitmap,0,0,width,height);
 
-    return canvas.toDataURL("image/jpeg",0.7);
+return canvas.toDataURL("image/jpeg",0.7);
+
 }
 
 function extractBase64(dataUrl){
-    return dataUrl.split(",")[1];
+return dataUrl.split(",")[1];
 }
-
-/* ============================= */
-/* Analyze Table */
-/* ============================= */
 
 analyzeBtn.onclick = async ()=>{
 
-    if(!selectedFile){
-        alert("ابتدا تصویر انتخاب کنید");
-        return;
-    }
+if(!selectedFile){
+alert("ابتدا تصویر انتخاب کنید");
+return;
+}
 
-    loading.style.display="block";
-    analyzeBtn.disabled = true;
+loading.sty.display="block";
+analyzeBtn.disabled=true;
 
-    try{
+try{
 
-        const compressed = await compressImage(selectedFile);
-        const base64 = extractBase64(compressed);
+const compressed = await compressImage(selectedFile);
+const base64 = extractBase64(compressed);
 
-        const response = await fetch("https://kasrakafinet.hosseinghanbari08.workers.dev",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer YOUR_GAPGPT_KEY"
-            },
-            body:JSON.stringify({
-                model:"gpt-4o-mini",
-                temperature:0,
-                messages:[
-                    {
-                        role:"system",
-                        content:"You extract tables from images and return clean CSV only."
-                    },
-                    {
-                        role:"user",
-                        content:[
-                            {
-                                type:"text",
-                                text:"Extract the table from this image and return ONLY CSV without explanation."
-                            },
-                            {
-                                type:"image_url",
-                                image_url:{
-                                    url:"data:image/jpeg;base64,"+base64
-                                }
-                            }
-                        ]
-                    }
-                ]
-            })
-        });
+const response = await fetch("https://kasrakafinet.hosseinghanbari08.workers.dev",{
 
-        if(!response.ok){
-            throw new Error("API Error");
-        }
+method:"POST",
 
-        const data = await response.json();
+headers:{
+"Content-Type":"application/json"
+},
 
-        const csv = data.choices[0].message.content;
+body:JSON.stringify({
+image:base64
+})
 
-        generateExcel(csv);
+});
 
-    }catch(err){
-        alert("خطا در پردازش تصویر");
-    }
+const text = await response.text();
 
-    loading.style.display="none";
-    analyzeBtn.disabled = false;
+if(!response.ok){
+throw new Error(text);
+}
+
+let data;
+
+try{
+data = JSON.parse(text);
+}catch{
+throw new Error("پاسخ JSON معتبر نیست");
+}
+
+const csv = data?.choices?.[0]?.message?.content;
+
+if(!csv){
+throw new Error("پاسخ CSV دریافت نشد");
+}
+
+generateExcel(csv);
+
+}catch(err){
+
+console.error(err);
+
+alert("خطا در پردازش:\n"+err.message);
+
+}
+
+loading.style.display="none";
+analyzeBtn.disabled=false;
+
 };
-
-/* ============================= */
-/* Excel Generator */
-/* ============================= */
 
 function generateExcel(csv){
 
-    const rows = csv
-        .trim()
-        .split("\n")
-        .map(r=>r.split(",").map(cell=>cell.trim()));
+const rows = csv
+.trim()
+.split("\n")
+.map(r=>r.split(",").map(c=>c.trim()));
 
-    const worksheet = XLSX.utils.aoa_to_sheet(rows);
+const ws = XLSX.utils.aoa_to_sheet(rows);
 
-    const workbook = XLSX.utils.book_new();
+const wb = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(workbook,worksheet,"Table");
+XLSX.utils.book_append_sheet(wb,ws,"Table");
 
-    XLSX.writeFile(workbook,"table.xlsx");
+XLSX.writeFile(wb,"table.xlsx");
+
 }
 
-/* ============================= */
-/* Remove */
-/* ============================= */
-
 removeBtn.onclick = ()=>{
-    preview.src="";
-    preview.style.display="none";
-    fileInput.value="";
-    selectedFile=null;
+
+preview.src="";
+preview.style.display="none";
+fileInput.value="";
+selectedFile=null;
+
 };
 
 </script>
