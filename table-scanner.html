@@ -1,127 +1,225 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-<meta charset="UTF-8" />
+
+<meta charset="UTF-8">
 <title>تبدیل عکس جدول به اکسل</title>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
 <style>
-    body {
-        font-family: sans-serif;
-        direction: rtl;
-        padding: 20px;
-        background: #f4f4f4;
-    }
-    .upload-box {
-        border: 2px dashed #888;
-        padding: 40px;
-        text-align: center;
-        background: #fff;
-        cursor: pointer;
-    }
-    #preview {
-        margin-top: 20px;
-        max-width: 100%;
-        display: none;
-    }
-    .buttons {
-        margin-top: 20px;
-    }
-    .buttons button {
-        padding: 10px 20px;
-        margin-left: 10px;
-        font-size: 15px;
-        cursor: pointer;
-    }
-    #loading {
-        display: none;
-        margin-top: 20px;
-        font-size: 18px;
-        color: #33a;
-    }
+
+body{
+font-family:tahoma;
+direction:rtl;
+background:#f5f5f5;
+padding:40px;
+text-align:center;
+}
+
+#drop{
+border:2px dashed #777;
+padding:40px;
+background:white;
+cursor:pointer;
+}
+
+#preview{
+max-width:400px;
+margin-top:20px;
+display:none;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+#loading{
+display:none;
+color:#1b63ff;
+font-size:18px;
+margin-top:20px;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<h2>تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</h2>
+<h2>📊 تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</h2>
 
-<div id="drop-area" class="upload-box">
-    آپلود یا Drag & Drop تصویر
-    <br><br>
-    <input type="file" id="fileInput" accept="image/*" style="display:none">
+<div id="drop">
+آپلود یا Drag & Drop تصویر
+<br><br>
+<input type="file" id="fileInput" accept="image/*" hidden>
 </div>
 
-<img id="preview" />
+<img id="preview">
 
-<div class="buttons">
-    <button id="analyzeBtn">تحلیل جدول</button>
-    <button id="removeBtn">حذف</button>
-</div>
+<br>
+
+<button id="analyze">تحلیل جدول</button>
+<button id="remove">حذف</button>
 
 <div id="loading">در حال پردازش...</div>
 
 <script>
-const dropArea = document.getElementById('drop-area');
-const input = document.getElementById('fileInput');
-const preview = document.getElementById('preview');
-const loading = document.getElementById('loading');
-const analyzeBtn = document.getElementById('analyzeBtn');
-const removeBtn = document.getElementById('removeBtn');
 
-// Click -> open file picker
-dropArea.addEventListener('click', () => input.click());
+const drop = document.getElementById("drop");
+const input = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const analyze = document.getElementById("analyze");
+const remove = document.getElementById("remove");
+const loading = document.getElementById("loading");
 
-// Drag & Drop
-dropArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropArea.style.borderColor = "#33a";
-});
-dropArea.addEventListener('dragleave', () => {
-    dropArea.style.borderColor = "#888";
-});
-dropArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropArea.style.borderColor = "#888";
-    const file = e.dataTransfer.files[0];
-    loadImage(file);
+let selectedFile = null;
+
+drop.onclick = () => input.click();
+
+input.onchange = () => {
+
+selectedFile = input.files[0];
+
+const reader = new FileReader();
+
+reader.onload = () => {
+
+preview.src = reader.result;
+preview.style.display = "block";
+
+};
+
+reader.readAsDataURL(selectedFile);
+
+};
+
+drop.addEventListener("dragover", e => {
+e.preventDefault();
 });
 
-// Input change
-input.addEventListener('change', () => {
-    loadImage(input.files[0]);
+drop.addEventListener("drop", e => {
+
+e.preventDefault();
+
+selectedFile = e.dataTransfer.files[0];
+
+const reader = new FileReader();
+
+reader.onload = () => {
+
+preview.src = reader.result;
+preview.style.display = "block";
+
+};
+
+reader.readAsDataURL(selectedFile);
+
 });
 
-// Load preview
-function loadImage(file) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-        preview.src = reader.result;
-        preview.style.display = "block";
-    };
-    reader.readAsDataURL(file);
+function fileToBase64(file){
+
+return new Promise((resolve,reject)=>{
+
+const reader = new FileReader();
+
+reader.onload = ()=>{
+
+const base64 = reader.result.split(",")[1];
+resolve(base64);
+
+};
+
+reader.onerror = reject;
+
+reader.readAsDataURL(file);
+
+});
+
 }
 
-// Analyze button
-analyzeBtn.addEventListener('click', () => {
-    if (preview.src === "") {
-        alert("ابتدا تصویر جدول را آپلود کنید.");
-        return;
-    }
-    loading.style.display = "block";
+analyze.onclick = async ()=>{
 
-    // شبیه‌سازی درخواست
-    setTimeout(() => {
-        loading.style.display = "none";
-        alert("تحلیل جدول انجام شد! (اینجا باید الگوریتم OCR/پردازش اضافه شود)");
-    }, 2000);
+if(!selectedFile){
+alert("ابتدا تصویر انتخاب کنید");
+return;
+}
+
+loading.style.display="block";
+
+const base64 = await fileToBase64(selectedFile);
+
+const res = await fetch("https://table-worker.yourdomain.workers.dev",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+"Authorization":"Bearer YOUR_GAPGPT_KEY"
+},
+
+body:JSON.stringify({
+
+model:"gpt-4o-mini",
+
+messages:[
+{
+role:"user",
+content:[
+{
+type:"text",
+text:"Extract the table from this image and return ONLY CSV format without explanation."
+},
+{
+type:"image_url",
+image_url:{
+url:"data:image/png;base64,"+base64
+}
+}
+]
+}
+]
+
+})
+
 });
 
-// Remove button
-removeBtn.addEventListener('click', () => {
-    preview.src = "";
-    preview.style.display = "none";
-    input.value = "";
-});
+const data = await res.json();
+
+loading.style.display="none";
+
+const csv = data.choices[0].message.content;
+
+downloadExcel(csv);
+
+};
+
+function downloadExcel(csv){
+
+const rows = csv.trim().split("\n").map(r=>r.split(","));
+
+const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+const workbook = XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(workbook,worksheet,"Table");
+
+XLSX.writeFile(workbook,"table.xlsx");
+
+}
+
+remove.onclick = ()=>{
+
+preview.src="";
+preview.style.display="none";
+input.value="";
+selectedFile=null;
+
+};
+
 </script>
 
 </body>
