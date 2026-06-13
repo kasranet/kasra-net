@@ -1,576 +1,302 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تبدیل عکس جدول به Google Sheets | کافی نت کسرا</title>
-    <link rel="icon" href="favicon.ico">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=1.0.2">
-    <style>
-        /* ────────── Upload Zone ────────── */
-        .upload-zone {
-            border: 2.5px dashed #93c5fd;
-            border-radius: 20px;
-            background: #f0f6ff;
-            padding: 52px 24px;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color .25s, background .25s, transform .2s;
-            position: relative;
-            user-select: none;
-        }
-        .upload-zone:hover { border-color: #2563eb; background: #dbeafe; transform: translateY(-2px); }
-        .upload-zone.drag-over { border-color: #1d4ed8; background: #bfdbfe; transform: scale(1.01); }
-        .upload-zone input[type="file"] {
-            position: absolute; inset: 0; opacity: 0;
-            cursor: pointer; width: 100%; height: 100%; z-index: 2;
-        }
-        .upload-zone .uz-icon { font-size: 3.2rem; color: #2563eb; margin-bottom: 14px; display: block; line-height: 1; }
-        .upload-zone .uz-title { font-weight: 700; font-size: 1rem; color: #1e293b; margin-bottom: 6px; }
-        .upload-zone .uz-sub { font-size: .82rem; color: #64748b; margin: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تبدیل عکس جدول به اکسل - نسخه حرفه‌ای</title>
 
-        /* ────────── Preview ────────── */
-        #previewBox { display: none; }
-        #previewImg {
-            max-height: 320px; max-width: 100%;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,.12);
-            border: 2px solid #e2e8f0;
-        }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        /* ────────── Result Table ────────── */
-        #resultSection { display: none; }
-        .result-table-wrap {
-            overflow-x: auto;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 20px rgba(0,0,0,.06);
-        }
-        .result-table-wrap table { margin: 0; min-width: 360px; font-size: .9rem; }
-        .result-table-wrap thead th {
-            background: #1d4ed8; color: #fff;
-            font-weight: 700; border: none;
-            padding: 12px 18px; white-space: nowrap;
-        }
-        .result-table-wrap tbody tr { transition: background .15s; }
-        .result-table-wrap tbody tr:hover { background: #eff6ff; }
-        .result-table-wrap td {
-            padding: 9px 16px;
-            border-color: #e2e8f0;
-            vertical-align: middle;
-        }
-        td[contenteditable="true"] { outline: none; cursor: text; }
-        td[contenteditable="true"]:focus {
-            background: #eff6ff !important;
-            box-shadow: inset 0 0 0 2px #3b82f6;
-            border-radius: 4px;
-        }
-
-        /* ────────── Tool Hero ────────── */
-        .tool-hero {
-            background: linear-gradient(135deg, #0f2c8f, #1d4ed8);
-            padding: 90px 0 55px;
-            color: #fff;
-            text-align: center;
-        }
-        .tool-hero .badge-pill {
-            background: rgba(255,255,255,.15);
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-size: .85rem;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .tool-hero h1 { font-size: 2.1rem; font-weight: 900; margin-bottom: 12px; }
-        .tool-hero p { opacity: .9; max-width: 580px; margin: 0 auto; line-height: 2; font-size: .97rem; }
-
-        /* ────────── Steps sidebar ────────── */
-        .step-item {
-            display: flex; gap: 14px; align-items: flex-start;
-            padding: 16px 0; border-bottom: 1px solid #f1f5f9;
-        }
-        .step-item:last-child { border-bottom: none; }
-        .step-num {
-            width: 34px; height: 34px; border-radius: 50%;
-            background: linear-gradient(135deg,#2563eb,#3b82f6);
-            color: #fff; font-weight: 800; font-size: .85rem;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; box-shadow: 0 3px 8px rgba(37,99,235,.3);
-        }
-        .step-item .step-title { font-weight: 700; font-size: .92rem; color: #1e293b; margin-bottom: 3px; }
-        .step-item .step-desc { font-size: .82rem; color: #64748b; line-height: 1.7; }
-
-        /* ────────── Buttons ────────── */
-        .btn-sheets {
-            background: #0f9d58; border-color: #0f9d58; color: #fff;
-            font-weight: 700;
-        }
-        .btn-sheets:hover { background: #0b8043; border-color: #0b8043; color: #fff; }
-
-        /* ────────── Loading overlay ────────── */
-        #loadingOverlay {
-            display: none;
-            position: fixed; inset: 0;
-            background: rgba(15,44,143,.55);
-            backdrop-filter: blur(4px);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #fff;
-            text-align: center;
-        }
-        #loadingOverlay.show { display: flex; }
-        .loading-card {
-            background: #fff;
-            border-radius: 24px;
-            padding: 40px 48px;
-            color: #1e293b;
-            box-shadow: 0 30px 80px rgba(0,0,0,.25);
-            max-width: 380px;
-            width: 90%;
-        }
-        .loading-card .spinner-border { width: 3rem; height: 3rem; border-width: .3rem; }
-        .loading-dots::after {
-            content: '';
-            animation: dots 1.4s steps(4, end) infinite;
-        }
-        @keyframes dots {
-            0%   { content: ''; }
-            25%  { content: '.'; }
-            50%  { content: '..'; }
-            75%  { content: '...'; }
-        }
-
-        /* ────────── Toast ────────── */
-        #toast {
-            position: fixed; bottom: 28px; left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: #1e293b; color: #fff;
-            padding: 14px 24px; border-radius: 14px;
-            font-size: .9rem; line-height: 1.6;
-            box-shadow: 0 8px 28px rgba(0,0,0,.25);
-            max-width: 90vw; text-align: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity .3s, transform .3s;
-            z-index: 99999;
-        }
-        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-
-        /* ────────── Misc ────────── */
-        .section-main { padding: 64px 0 80px; background: #f8fafc; }
-        .card-tool { border-radius: 20px; border: 1px solid #e8eef6; box-shadow: 0 4px 24px rgba(0,0,0,.05); }
-        .label-step { font-weight: 700; color: #1e293b; margin-bottom: 10px; display: block; }
-
-        @media (max-width: 576px) {
-            .tool-hero { padding: 80px 0 44px; }
-            .tool-hero h1 { font-size: 1.6rem; }
-        }
-    </style>
+<style>
+body{background:#f8fafc}
+.upload-zone{
+    border:2px dashed #3b82f6;
+    padding:40px;
+    border-radius:16px;
+    text-align:center;
+    cursor:pointer;
+    background:#eff6ff;
+    transition:.2s;
+}
+.upload-zone.drag-over{background:#dbeafe}
+#previewBox{display:none}
+#resultBox{display:none}
+#loader{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    color:#fff;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+table td{min-width:80px}
+</style>
 </head>
+
 <body>
 
-<!-- ══════════ Navbar ══════════ -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="kasra_logo_main.webp" alt="کافی نت آنلاین کسرا" height="35" loading="eager">
-        </a>
-        <a href="/" class="btn btn-outline-light btn-sm ms-auto rounded-3">
-            <i class="fa-solid fa-arrow-right me-1"></i> بازگشت به سایت
-        </a>
-    </div>
-</nav>
+<div class="container py-5">
 
-<!-- ══════════ Hero ══════════ -->
-<div class="tool-hero">
-    <div class="container">
-        <div class="badge-pill">
-            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>ابزار هوش مصنوعی رایگان
-        </div>
-        <h1><i class="fa-solid fa-table me-2"></i>تبدیل عکس جدول به Google Sheets</h1>
-        <p>عکس هر جدولی رو آپلود کن — هوش مصنوعی اون رو می‌خونه و تبدیل به فایل آماده برای Google Sheets می‌کنه.</p>
+<h3 class="mb-3">📊 تبدیل عکس جدول به اکسل (نسخه حرفه‌ای)</h3>
+
+<!-- Upload -->
+<div class="upload-zone" id="uploadZone">
+    <input type="file" id="fileInput" accept="image/*"
+        style="position:absolute;inset:0;opacity:0;cursor:pointer;">
+    <i class="fa fa-cloud-upload fa-2x"></i>
+    <div>آپلود یا Drag & Drop تصویر</div>
+</div>
+
+<!-- Preview -->
+<div id="previewBox" class="mt-3 text-center">
+    <img id="previewImg" style="max-width:100%;border-radius:12px">
+    <div class="mt-2">
+        <button class="btn btn-primary" onclick="analyzeImage()">تحلیل جدول</button>
+        <button class="btn btn-secondary" onclick="resetAll()">حذف</button>
     </div>
 </div>
 
-<!-- ══════════ Main ══════════ -->
-<section class="section-main">
-<div class="container">
-<div class="row g-5 justify-content-center">
+<!-- Error -->
+<div id="errorBox" class="alert alert-danger mt-3 d-none"></div>
 
-    <!-- ── Tool Card ── -->
-    <div class="col-lg-7">
-        <div class="card card-tool p-4 p-md-5 bg-white">
-
-            <!-- Upload -->
-            <label class="label-step">
-                <i class="fa-solid fa-image text-primary me-2"></i>
-                عکس جدول را آپلود کنید
-            </label>
-            <div class="upload-zone" id="uploadZone">
-                <input type="file" id="fileInput" accept="image/*">
-                <span class="uz-icon"><i class="fa-solid fa-cloud-arrow-up"></i></span>
-                <p class="uz-title">فایل را اینجا بکشید یا کلیک کنید</p>
-                <p class="uz-sub">JPG · PNG · WEBP · حداکثر ۴ مگابایت</p>
-            </div>
-
-            <!-- Preview -->
-            <div id="previewBox" class="mt-3 text-center">
-                <img id="previewImg" src="" alt="پیش‌نمایش جدول">
-                <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
-                    <button class="btn btn-sm btn-outline-secondary rounded-3" onclick="clearImage()">
-                        <i class="fa-solid fa-xmark me-1"></i> حذف و تغییر عکس
-                    </button>
-                    <button class="btn btn-primary btn-sm rounded-3" onclick="analyzeImage()">
-                        <i class="fa-solid fa-magnifying-glass-chart me-1"></i> همین عکس را تحلیل کن
-                    </button>
-                </div>
-            </div>
-
-            <!-- Optional hint -->
-            <div id="hintBox" class="mt-4">
-                <label class="label-step" style="font-size:.9rem;">
-                    <i class="fa-solid fa-pen-to-square text-secondary me-2"></i>
-                    دستورالعمل اضافی <span class="text-muted fw-400">(اختیاری)</span>
-                </label>
-                <textarea id="userPrompt" class="form-control rounded-3" rows="2"
-                    placeholder="مثلاً: ستون اول نادیده گرفته شود — یا — اعداد را فارسی کن — یا — فقط ۳ ستون اول را بده"></textarea>
-            </div>
-
-            <!-- Error -->
-            <div id="errorBox" class="alert alert-danger mt-4 d-none rounded-3 d-flex align-items-center gap-2" role="alert">
-                <i class="fa-solid fa-circle-exclamation flex-shrink-0"></i>
-                <span id="errorText"></span>
-            </div>
-
-            <!-- Analyze Button -->
-            <button class="btn btn-primary btn-lg w-100 mt-4 rounded-3 fw-700" id="analyzeBtn" onclick="analyzeImage()">
-                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>
-                استخراج جدول با هوش مصنوعی
-            </button>
-
-        </div>
-
-        <!-- ══ Result ══ -->
-        <div id="resultSection" class="card card-tool p-4 p-md-5 bg-white mt-4">
-
-            <div class="d-flex justify-content-between align-items-start mb-3 gap-3 flex-wrap">
-                <div>
-                    <h5 class="fw-800 mb-1">
-                        <i class="fa-solid fa-table-cells-large me-2 text-primary"></i>
-                        جدول استخراج شده
-                    </h5>
-                    <small class="text-muted">می‌توانید سلول‌ها را قبل از دانلود ویرایش کنید</small>
-                </div>
-                <div class="d-flex gap-2 flex-wrap">
-                    <button class="btn btn-outline-primary btn-sm rounded-3 fw-600" onclick="downloadCSV()">
-                        <i class="fa-solid fa-file-csv me-1"></i> دانلود CSV
-                    </button>
-                    <button class="btn btn-sheets btn-sm rounded-3" onclick="openInSheets()">
-                        <i class="fa-brands fa-google me-1"></i> باز در Google Sheets
-                    </button>
-                </div>
-            </div>
-
-            <div class="result-table-wrap" id="tableWrap"></div>
-
-            <div class="mt-3 p-3 rounded-3" style="background:#f8fafc;border:1px solid #e2e8f0;font-size:.82rem;color:#64748b;line-height:1.9;">
-                <strong class="text-primary"><i class="fa-solid fa-lightbulb me-1"></i>راهنمای Google Sheets:</strong><br>
-                روی «باز در Google Sheets» کلیک کن ← فایل CSV دانلود می‌شه ← در Google Sheets گزینه
-                <strong>File → Import → Upload</strong> رو انتخاب کن و فایل دانلود شده رو بارگذاری کن.
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ── Sidebar ── -->
-    <div class="col-lg-4 col-xl-3">
-        <div class="card card-tool p-4 bg-white" style="position:sticky;top:88px;">
-            <h6 class="fw-800 mb-1"><i class="fa-solid fa-circle-question me-2 text-primary"></i>چطور کار می‌کنه؟</h6>
-            <p class="text-muted mb-3" style="font-size:.82rem;">فقط ۳ مرحله ساده</p>
-
-            <div class="step-item">
-                <div class="step-num">۱</div>
-                <div>
-                    <div class="step-title">عکس بگیر یا اسکرین‌شات کن</div>
-                    <div class="step-desc">از هر جدولی — رسید، فاکتور، لیست دستی، PDF، صفحه‌نمایش</div>
-                </div>
-            </div>
-            <div class="step-item">
-                <div class="step-num">۲</div>
-                <div>
-                    <div class="step-title">آپلود و تحلیل</div>
-                    <div class="step-desc">هوش مصنوعی Claude همه سطرها و ستون‌ها رو می‌خونه و استخراج می‌کنه</div>
-                </div>
-            </div>
-            <div class="step-item">
-                <div class="step-num">۳</div>
-                <div>
-                    <div class="step-title">دانلود یا باز در Sheets</div>
-                    <div class="step-desc">CSV بگیر یا مستقیم در Google Sheets ایمپورت کن</div>
-                </div>
-            </div>
-
-            <hr class="my-3">
-
-            <div class="d-flex gap-2 align-items-start" style="font-size:.8rem;color:#64748b;">
-                <i class="fa-solid fa-shield-halved text-success mt-1 flex-shrink-0"></i>
-                <span>تصویر شما فقط برای پردازش ارسال می‌شه و ذخیره نمی‌شه.</span>
-            </div>
-            <div class="d-flex gap-2 align-items-start mt-2" style="font-size:.8rem;color:#64748b;">
-                <i class="fa-solid fa-bolt text-warning mt-1 flex-shrink-0"></i>
-                <span>معمولاً در کمتر از ۱۵ ثانیه نتیجه آماده‌ست.</span>
-            </div>
-            <div class="d-flex gap-2 align-items-start mt-2" style="font-size:.8rem;color:#64748b;">
-                <i class="fa-solid fa-language text-primary mt-1 flex-shrink-0"></i>
-                <span>فارسی، عربی، انگلیسی و اعداد مختلط رو پشتیبانی می‌کنه.</span>
-            </div>
-
-            <hr class="my-3">
-            <div class="text-center">
-                <a href="tel:09204036858" class="btn btn-success btn-sm rounded-3 w-100 fw-700">
-                    <i class="fa-solid fa-phone me-1"></i> مشکل داری؟ زنگ بزن
-                </a>
-            </div>
-        </div>
-    </div>
+<!-- Result -->
+<div id="resultBox" class="mt-4"></div>
 
 </div>
-</div>
-</section>
 
-<!-- ══════════ Footer ══════════ -->
-<footer>
-    <div class="container text-center">
-        <p class="mb-0" style="font-size:.88rem;color:rgba(255,255,255,.5);">
-            © ۱۴۰۴ کافی نت آنلاین کسرا — ابزار هوشمند تبدیل جدول
-        </p>
-    </div>
-</footer>
-
-<!-- ══════════ Loading Overlay ══════════ -->
-<div id="loadingOverlay">
-    <div class="loading-card text-center">
-        <div class="spinner-border text-primary mb-3" role="status"></div>
-        <h6 class="fw-700 mb-1">در حال تحلیل جدول<span class="loading-dots"></span></h6>
-        <p class="text-muted mb-0" style="font-size:.85rem;">هوش مصنوعی در حال خواندن تصویر است — لطفاً صبر کنید</p>
+<!-- Loader -->
+<div id="loader" class="d-flex">
+    <div class="text-center">
+        <div class="spinner-border mb-2"></div>
+        <div>در حال پردازش...</div>
     </div>
 </div>
 
-<!-- ══════════ Toast ══════════ -->
-<div id="toast"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// ═══════════════════════════════════════════════════════
-//  ⚠️  آدرس Worker خودت رو اینجا بذار بعد از deploy:
-// ═══════════════════════════════════════════════════════
-const WORKER_URL = 'https://kasrakafinet.hosseinghanbari08.workers.dev';
-// ═══════════════════════════════════════════════════════
+/* =====================
+   CONFIG
+===================== */
+const WORKER_URL = "https://kasrakafinet.hosseinghanbari08.workers.dev";
 
-let imageBase64   = null;
-let imageMediaType = null;
-let tableData     = []; // آرایه‌ای از آرایه‌ها: [headers, row1, row2, ...]
+/* =====================
+   GLOBALS
+===================== */
+let imageBase64 = null;
+let mediaType = "image/jpeg";
+let tableData = [];
 
-// ─── Upload & Drag-drop ───
-const uploadZone = document.getElementById('uploadZone');
-const fileInput  = document.getElementById('fileInput');
+/* =====================
+   UPLOAD HANDLER
+===================== */
+const fileInput = document.getElementById("fileInput");
+const uploadZone = document.getElementById("uploadZone");
 
-uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-uploadZone.addEventListener('drop', e => {
+fileInput.addEventListener("change", e=>{
+    if(e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+uploadZone.addEventListener("dragover", e=>{
     e.preventDefault();
-    uploadZone.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-});
-fileInput.addEventListener('change', () => {
-    if (fileInput.files[0]) handleFile(fileInput.files[0]);
+    uploadZone.classList.add("drag-over");
 });
 
-function handleFile(file) {
-    hideError();
-    if (!file.type.startsWith('image/')) { showError('لطفاً یک فایل تصویری انتخاب کنید (JPG، PNG، WEBP).'); return; }
-    if (file.size > 4 * 1024 * 1024)    { showError('حجم فایل نباید بیشتر از ۴ مگابایت باشد.'); return; }
+uploadZone.addEventListener("dragleave", ()=>{
+    uploadZone.classList.remove("drag-over");
+});
 
-    imageMediaType = file.type;
+uploadZone.addEventListener("drop", e=>{
+    e.preventDefault();
+    uploadZone.classList.remove("drag-over");
+    handleFile(e.dataTransfer.files[0]);
+});
+
+/* =====================
+   IMAGE COMPRESS (IMPORTANT)
+===================== */
+function compressImage(file, cb){
     const reader = new FileReader();
-    reader.onload = e => {
-        imageBase64 = e.target.result.split(',')[1];
-        document.getElementById('previewImg').src  = e.target.result;
-        document.getElementById('previewBox').style.display = 'block';
-        document.getElementById('uploadZone').style.display = 'none';
-        document.getElementById('resultSection').style.display = 'none';
+
+    reader.onload = e=>{
+        const img = new Image();
+
+        img.onload = ()=>{
+            const canvas = document.createElement("canvas");
+
+            const MAX_WIDTH = 1200;
+            const scale = MAX_WIDTH / img.width;
+
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scale;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+            const compressed = canvas.toDataURL("image/jpeg",0.7);
+            cb(compressed);
+        };
+
+        img.src = e.target.result;
     };
+
     reader.readAsDataURL(file);
 }
 
-function clearImage() {
-    imageBase64 = imageMediaType = null;
-    fileInput.value = '';
-    document.getElementById('previewBox').style.display   = 'none';
-    document.getElementById('uploadZone').style.display   = 'block';
-    document.getElementById('resultSection').style.display = 'none';
+/* =====================
+   HANDLE FILE
+===================== */
+function handleFile(file){
     hideError();
+
+    if(!file.type.startsWith("image/")){
+        return showError("فقط تصویر مجاز است");
+    }
+
+    compressImage(file, (compressed)=>{
+
+        imageBase64 = compressed.split(",")[1];
+        mediaType = "image/jpeg";
+
+        document.getElementById("previewImg").src = compressed;
+        document.getElementById("previewBox").style.display = "block";
+        uploadZone.style.display = "none";
+    });
 }
 
-// ─── Analyze ───
-async function analyzeImage() {
-    hideError();
-    if (!imageBase64) { showError('ابتدا یک عکس آپلود کنید.'); return; }
+/* =====================
+   RESET
+===================== */
+function resetAll(){
+    imageBase64 = null;
+    fileInput.value = "";
+    document.getElementById("previewBox").style.display = "none";
+    uploadZone.style.display = "block";
+    document.getElementById("resultBox").style.display = "none";
+}
 
-    if (WORKER_URL.includes('YOUR-WORKER-NAME')) {
-        showError('آدرس Worker هنوز تنظیم نشده. ابتدا worker.js را deploy کنید و آدرس را در WORKER_URL وارد کنید.');
-        return;
+/* =====================
+   ANALYZE IMAGE
+===================== */
+async function analyzeImage(){
+
+    if(!imageBase64){
+        return showError("اول عکس آپلود کن");
     }
 
     setLoading(true);
-    document.getElementById('resultSection').style.display = 'none';
+    hideError();
 
-    const userPrompt = document.getElementById('userPrompt').value.trim();
+    const controller = new AbortController();
+    const timeout = setTimeout(()=>controller.abort(),30000);
 
-    try {
-        const res = await fetch(WORKER_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ imageBase64, mediaType: imageMediaType, userPrompt })
+    try{
+
+        const res = await fetch(WORKER_URL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                imageBase64,
+                mediaType,
+                userPrompt:"این تصویر جدول است. آن را به JSON تبدیل کن"
+            }),
+            signal:controller.signal
         });
 
-        const data = await res.json();
+        clearTimeout(timeout);
 
-        if (!res.ok) {
-            throw new Error(data?.error || `خطای سرور: ${res.status}`);
+        const text = await res.text();
+
+        if(!res.ok){
+            throw new Error("Server error: "+res.status);
         }
 
-        // استخراج متن پاسخ
-        const rawText = data.content?.find(b => b.type === 'text')?.text || '';
-        const clean   = rawText.replace(/```json|```/g, '').trim();
+        let data;
+        try{
+            data = JSON.parse(text);
+        }catch{
+            throw new Error("پاسخ سرور خراب است");
+        }
 
-        let parsed;
-        try { parsed = JSON.parse(clean); }
-        catch { throw new Error('پاسخ هوش مصنوعی قابل پردازش نبود. لطفاً دوباره امتحان کنید.'); }
+        const raw = data?.data?.choices?.[0]?.message?.content || "";
 
-        if (parsed.error) throw new Error('جدولی در تصویر پیدا نشد. لطفاً عکس واضح‌تری از جدول بگیرید.');
+        const clean = raw.replace(/```json|```/g,"").trim();
+
+        const parsed = JSON.parse(clean);
 
         tableData = [parsed.headers, ...parsed.rows];
+
         renderTable(parsed.headers, parsed.rows);
 
+    }catch(err){
+        if(err.name==="AbortError"){
+            showError("زمان پردازش تمام شد");
+        }else{
+            showError(err.message);
+        }
+    }finally{
         setLoading(false);
-        document.getElementById('resultSection').style.display = 'block';
-        setTimeout(() => {
-            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-
-    } catch (err) {
-        setLoading(false);
-        showError(err.message || 'خطایی رخ داد. لطفاً دوباره امتحان کنید.');
     }
 }
 
-// ─── Render Table ───
-function renderTable(headers, rows) {
-    let html = '<table class="table table-bordered mb-0"><thead><tr>';
-    headers.forEach(h => { html += `<th>${esc(h)}</th>`; });
-    html += '</tr></thead><tbody>';
+/* =====================
+   RENDER TABLE
+===================== */
+function renderTable(headers, rows){
 
-    rows.forEach((row, ri) => {
-        html += '<tr>';
-        // اگر ستون‌های سطر کمتر از هدر بود، پر کن
-        const padded = [...row];
-        while (padded.length < headers.length) padded.push('');
-        padded.forEach((cell, ci) => {
-            html += `<td contenteditable="true" oninput="cellEdit(this,${ri+1},${ci})">${esc(cell)}</td>`;
+    let html = `<div class="table-responsive">
+    <table class="table table-bordered">`;
+
+    html += "<thead><tr>";
+    headers.forEach(h=>{
+        html += `<th>${h}</th>`;
+    });
+    html += "</tr></thead><tbody>";
+
+    rows.forEach((row,i)=>{
+        html += "<tr>";
+
+        headers.forEach((_,j)=>{
+            html += `<td contenteditable oninput="edit(${i+1},${j},this)">
+                ${row[j]||""}
+            </td>`;
         });
-        html += '</tr>';
+
+        html += "</tr>";
     });
 
-    html += '</tbody></table>';
-    document.getElementById('tableWrap').innerHTML = html;
+    html += "</tbody></table></div>";
+
+    document.getElementById("resultBox").innerHTML = html;
+    document.getElementById("resultBox").style.display="block";
 }
 
-function cellEdit(el, ri, ci) {
-    if (!tableData[ri]) tableData[ri] = [];
-    tableData[ri][ci] = el.innerText.trim();
+function edit(r,c,el){
+    if(!tableData[r]) tableData[r]=[];
+    tableData[r][c]=el.innerText;
 }
 
-function esc(str) {
-    return String(str ?? '')
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;');
+/* =====================
+   UI HELPERS
+===================== */
+function showError(msg){
+    const box=document.getElementById("errorBox");
+    box.classList.remove("d-none");
+    box.innerText=msg;
 }
 
-// ─── CSV ───
-function toCSV() {
-    return tableData.map(row =>
-        row.map(cell => {
-            const s = String(cell ?? '');
-            return (s.includes(',') || s.includes('"') || s.includes('\n'))
-                ? '"' + s.replace(/"/g, '""') + '"'
-                : s;
-        }).join(',')
-    ).join('\r\n');
+function hideError(){
+    document.getElementById("errorBox").classList.add("d-none");
 }
 
-function downloadCSV(filename) {
-    const csv  = toCSV();
-    const bom  = '\uFEFF'; // BOM برای خوانده شدن درست فارسی در Excel/Sheets
-    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = filename || ('kasra_table_' + new Date().toISOString().slice(0,10) + '.csv');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+function setLoading(state){
+    document.getElementById("loader").style.display =
+        state ? "flex":"none";
 }
-
-function openInSheets() {
-    // ۱. دانلود CSV
-    downloadCSV('kasra_table.csv');
-    // ۲. باز کردن Google Sheets جدید
-    setTimeout(() => { window.open('https://sheets.new', '_blank'); }, 600);
-    // ۳. راهنما
-    showToast('فایل kasra_table.csv دانلود شد ✓\nدر Google Sheets: File → Import → Upload → فایل را انتخاب کنید');
-}
-
-// ─── UI helpers ───
-function setLoading(on) {
-    document.getElementById('loadingOverlay').classList.toggle('show', on);
-    const btn = document.getElementById('analyzeBtn');
-    btn.disabled = on;
-    btn.innerHTML = on
-        ? '<span class="spinner-border spinner-border-sm me-2"></span>در حال تحلیل...'
-        : '<i class="fa-solid fa-wand-magic-sparkles me-2"></i>استخراج جدول با هوش مصنوعی';
-}
-
-function showError(msg) {
-    const box = document.getElementById('errorBox');
-    document.getElementById('errorText').textContent = msg;
-    box.classList.remove('d-none');
-    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-function hideError() { document.getElementById('errorBox').classList.add('d-none'); }
-
-let toastTimer;
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.innerHTML = msg.replace(/\n/g, '<br>');
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 6000);
-}
-
-// Navbar shadow on scroll
-window.addEventListener('scroll', () => {
-    document.querySelector('.navbar').style.boxShadow =
-        window.scrollY > 40 ? '0 4px 20px rgba(0,0,0,.3)' : 'none';
-}, { passive: true });
 </script>
+
 </body>
 </html>
