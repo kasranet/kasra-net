@@ -24,40 +24,26 @@
 </div>
 
 <script>
-const WORKER_URL = "https://YOUR-WORKER.workers.dev";
+const WORKER_URL = "https://kasrakafinet.workers.dev";
+const API_KEY = "sk-QrusuybuUSEB9BRxFxu1J560YNRHsDfNfaxnoFaYKIgqbHJe";
 
-async function send() {
-  const text = document.getElementById("input").value;
-  const resBox = document.getElementById("res");
+async function sendMessage(text) {
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + API_KEY
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "user", content: text }
+      ]
+    })
+  });
 
-  resBox.innerText = "در حال پاسخ... ⏳";
-
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer YOUR_GAPGPT_API_KEY"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "user", content: text }
-        ]
-      })
-    });
-
-    if (!res.ok) throw new Error("Request Failed");
-
-    const data = await res.json();
-
-    const answer = data.choices?.[0]?.message?.content || "پاسخی دریافت نشد";
-
-    resBox.innerText = answer;
-
-  } catch (err) {
-    resBox.innerText = "خطا در ارتباط: " + err.message;
-  }
+  const data = await res.json();
+  return data?.choices?.[0]?.message?.content;
 }
 </script>
 
