@@ -1,646 +1,247 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>کافی نت آنلاین کسرا | خدمات کامپیوتری و ثبت نام اینترنتی</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kasranex.ai | ویدئو، پوستر و موشن‌گرافیک با هوش مصنوعی</title>
+<meta name="description" content="تولید ویدئو، پوستر و موشن‌گرافیک با هوش مصنوعی. نمونه‌کارها و سفارش پروژه.">
+<style>
+@font-face{font-family:Vazirmatn;font-weight:400;font-display:swap;src:url(Vazirmatn-Regular.woff2) format("woff2")}
+@font-face{font-family:Vazirmatn;font-weight:500;font-display:swap;src:url(Vazirmatn-Medium.woff2) format("woff2")}
+@font-face{font-family:Vazirmatn;font-weight:700;font-display:swap;src:url(Vazirmatn-Bold.woff2) format("woff2")}
+@font-face{font-family:Vazirmatn;font-weight:800;font-display:swap;src:url(Vazirmatn-ExtraBold.woff2) format("woff2")}
+:root{
+  --bg:#0c0e1d; --panel:#141731; --line:rgba(255,255,255,.1);
+  --text:#eef0ff; --mute:#a3a8cc;
+  --violet:#7c5cff; --cyan:#22d3ee; --rose:#ff4d8d; --amber:#ffb454;
+  --grad:linear-gradient(120deg,var(--violet),var(--cyan));
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);line-height:1.95;font-size:16.5px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 
-    <!-- Preload تصویر اصلی سایت -->
-    <link rel="preload" as="image" href="hero.webp" fetchpriority="high">
+/* header */
+header{position:fixed;inset:0 0 auto 0;z-index:20;backdrop-filter:blur(14px);background:rgba(12,14,29,.7);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:800;font-size:20px;text-decoration:none;direction:ltr;letter-spacing:.3px}
+.logo i{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{display:flex;gap:28px;align-items:center}
+nav a{text-decoration:none;color:var(--mute);font-weight:500;transition:color .2s}
+nav a:hover{color:var(--text)}
+nav .cta{color:var(--bg);background:var(--text);padding:5px 20px;border-radius:99px;font-weight:700}
+nav .cta:hover{color:var(--bg);background:var(--cyan)}
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+/* hero */
+.hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;padding:120px 0 80px}
+.aurora{position:absolute;inset:0;pointer-events:none}
+.aurora span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.aurora span:nth-child(1){width:560px;height:560px;background:var(--violet);left:-80px;top:-60px;animation:drift 18s ease-in-out infinite}
+.aurora span:nth-child(2){width:480px;height:480px;background:var(--cyan);left:30%;bottom:-200px;opacity:.35;animation:drift 22s ease-in-out -6s infinite reverse}
+.aurora span:nth-child(3){width:420px;height:420px;background:var(--rose);right:8%;top:6%;opacity:.4;animation:drift 20s ease-in-out -11s infinite}
+@keyframes drift{50%{transform:translate(60px,40px) scale(1.12)}}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(36px,6.2vw,80px);font-weight:800;line-height:1.3;max-width:12em;letter-spacing:-.5px}
+.hero p{font-size:19px;color:var(--mute);max-width:32em;margin:24px 0 36px}
+.btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:700;padding:12px 30px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.06);transition:background .2s,transform .2s}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn.main{background:var(--grad);border:0;color:#08091a}
+.btn.main:hover{transform:translateY(-2px);background:var(--grad)}
+.meta{display:flex;gap:36px;flex-wrap:wrap;margin-top:64px;padding-top:24px;border-top:1px solid var(--line);color:var(--mute);font-size:15px}
+.meta b{display:block;color:var(--text);font-size:18px}
 
-    <meta name="description" content="کافی نت آنلاین کسرا، خدمات ثبت نام اینترنتی، دولت الکترونیک، نصب ویندوز و نرم افزار در محل، ثبت نام کارت سوخت، تعویض پلاک و خدمات آنلاین">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="کافی نت آنلاین کسرا">
+/* sections */
+section{padding:110px 0}
+h2{font-size:clamp(28px,3.6vw,42px);font-weight:800;line-height:1.4;letter-spacing:-.3px}
+.lead{color:var(--mute);max-width:34em;margin:10px 0 36px}
 
-    <link rel="canonical" href="https://kasrakafinet.ir">
-    <link rel="icon" href="favicon.ico">
+/* work */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{font:inherit;font-weight:500;cursor:pointer;padding:5px 20px;border:1px solid var(--line);border-radius:99px;background:transparent;color:var(--mute);transition:all .2s}
+.filters button:hover{color:var(--text)}
+.filters button[aria-pressed=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-rows:140px;grid-auto-flow:dense;gap:16px}
+.card{position:relative;overflow:hidden;border-radius:20px;border:1px solid var(--line);grid-row:span 2;background:var(--panel)}
+.card.video{grid-column:span 2}
+.card.poster{grid-row:span 3}
+.card[hidden]{display:none}
+.card img,.card video,.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover img,.card:hover video,.card:hover .ph{transform:scale(1.05)}
+.card figcaption{position:absolute;inset:auto 0 0 0;padding:44px 20px 16px;background:linear-gradient(transparent,rgba(8,9,26,.88));display:flex;justify-content:space-between;align-items:flex-end;gap:10px;font-weight:700}
+.card figcaption small{font-weight:500;color:var(--mute)}
+.badge{position:absolute;top:14px;inset-inline-start:14px;font-size:13px;padding:0 12px;border-radius:99px;background:rgba(8,9,26,.55);backdrop-filter:blur(8px);border:1px solid var(--line)}
+@media(max-width:560px){.card.video{grid-column:span 1}}
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "کافی نت آنلاین کسرا",
-        "telephone": "09204036858",
-        "url": "https://kasrakafinet.ir",
-        "description": "خدمات اینترنتی و کامپیوتری در محل"
-    }
-    </script>
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:center}
+.avatar{aspect-ratio:4/5;border-radius:28px;border:1px solid var(--line);background:linear-gradient(160deg,var(--violet),var(--rose)) center/cover;display:grid;place-items:center;font-size:80px;font-weight:800;direction:ltr}
+.about p{color:var(--mute)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.tools span{border:1px solid var(--line);border-radius:99px;padding:0 16px;font-size:14.5px;background:rgba(255,255,255,.04)}
 
-    <link rel="stylesheet" href="style.css?v=1.0.2">
+/* services */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.svc{position:relative;padding:30px;border-radius:24px;border:1px solid var(--line);background:var(--panel);overflow:hidden;transition:border-color .3s}
+.svc::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--c)}
+.svc:hover{border-color:var(--c)}
+.svc:nth-child(1){--c:var(--violet)}.svc:nth-child(2){--c:var(--rose)}.svc:nth-child(3){--c:var(--cyan)}
+.svc h3{font-size:21px;font-weight:700}
+.svc>p{color:var(--mute);margin:4px 0 14px}
+.svc ul{list-style:none;padding:0}
+.svc li{padding:4px 0;border-top:1px solid var(--line);font-size:15.5px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;margin-top:64px;counter-reset:s}
+.steps div{counter-increment:s;position:relative;padding:22px 0 0;color:var(--mute);border-top:1px solid var(--line)}
+.steps div::before{content:"";position:absolute;top:-5px;inset-inline-start:0;width:9px;height:9px;border-radius:50%;background:var(--cyan)}
+.steps b{display:block;color:var(--text);font-size:18px}
+
+/* contact */
+.contact{position:relative;overflow:hidden;border-radius:32px;border:1px solid var(--line);padding:72px 40px;text-align:center;background:var(--panel)}
+.contact::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:var(--violet);filter:blur(120px);opacity:.35;left:50%;top:-300px;translate:-50% 0}
+.contact>*{position:relative}
+.contact .lead{margin-inline:auto}
+.handle{display:inline-block;direction:ltr;font-size:clamp(28px,5vw,52px);font-weight:800;text-decoration:none;margin-bottom:28px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{padding:36px 0;text-align:center;color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+
+@media(max-width:760px){
+  nav a:not(.cta){display:none}
+  .about{grid-template-columns:1fr;gap:32px}
+  .avatar{max-width:260px;aspect-ratio:1}
+  section{padding:80px 0}
+  .contact{padding:56px 22px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
-
 <body>
 
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="kasra_logo_main.webp" alt="کافی نت آنلاین کسرا" height="35" fetchpriority="high">
-        </a>
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#menu"
-                aria-controls="menu" aria-expanded="false" aria-label="منو">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa-solid fa-house ms-1"></i>
-                        خانه
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#services">
-                        <i class="fa-solid fa-laptop-code ms-1"></i>
-                        خدمات
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#features">
-                        <i class="fa-solid fa-shield-halved ms-1"></i>
-                        مزایا
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#prices">
-                        <i class="fa-solid fa-coins ms-1"></i>
-                        تعرفه‌ها
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">
-                        <i class="fa-solid fa-headset ms-1"></i>
-                        تماس با ما
-                    </a>
-                </li>
-            </ul>
-            <a href="table-scanner.html" class="btn btn-sm rounded-3 fw-700 me-2"
-               style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);white-space:nowrap;">
-                <i class="fa-solid fa-table me-1"></i>
-                تبدیل جدول به Sheets
-            </a>
-        </div>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">kasranex<i>.ai</i></a>
+    <nav aria-label="منوی اصلی">
+      <a href="#work">نمونه‌کارها</a>
+      <a href="#about">درباره من</a>
+      <a href="#services">خدمات</a>
+      <a class="cta" href="#contact">سفارش پروژه</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="wrap">
+    <h1>ایده‌ت رو به ویدئو، پوستر و موشن‌گرافیک تبدیل می‌کنم</h1>
+    <p>تولید محتوای بصری با هوش مصنوعی برای برندها و تولیدکننده‌های محتوا؛ سریع، با کیفیت سینمایی و آماده انتشار.</p>
+    <div class="btns">
+      <a class="btn main" href="#contact">سفارش پروژه</a>
+      <a class="btn" href="#work">دیدن نمونه‌کارها</a>
     </div>
-</nav>
-
-    <!-- News Ticker -->
-    <div class="news-ticker" aria-label="اخبار">
-        <div class="news-ticker-content">
-            ⚡ نصب ویندوز در محل &nbsp;|&nbsp; 📌 ثبت نام سامانه‌های دولتی &nbsp;|&nbsp; 💻 نصب نرم‌افزارهای تخصصی &nbsp;|&nbsp; 🏠 خدمات کامپیوتری در محل &nbsp;|&nbsp; 📞 ۰۹۲۰۴۰۳۶۸۵۸ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
+    <div class="meta">
+      <div><b>ویدئو</b>تیزر، ریلز، کلیپ</div>
+      <div><b>پوستر</b>شبکه اجتماعی و چاپ</div>
+      <div><b>موشن‌گرافیک</b>لوگو، اینفوگرافیک، توضیح محصول</div>
     </div>
+  </div>
+</div>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="row align-items-center gy-5">
-                <div class="col-lg-5 text-center text-lg-end">
-                    <h1 class="display-4 fw-bold mb-3">کافی نت آنلاین کسرا</h1>
-                    <div class="hero-badge text-warning fw-bold mb-3">⚡ انجام خدمات اینترنتی و کامپیوتری در محل</div>
-                    <h2 class="h3 mb-4">ثبت‌نام اینترنتی، خدمات دولتی و نصب ویندوز در محل</h2>
-                    <p class="lead mb-4">
-                        انجام انواع ثبت‌نام‌های اینترنتی، خدمات دولت الکترونیک،
-                        ثبت‌نام کارت سوخت، سامانه املاک و اسکان،
-                        نصب ویندوز، نصب نرم‌افزارهای عمومی و تخصصی
-                        و رفع مشکلات کامپیوتری در محل شما.
-                    </p>
-                    <div class="d-flex gap-2 justify-content-center justify-content-lg-start flex-wrap">
-                        <a href="tel:09204036858" class="btn btn-success btn-lg">
-                            <i class="fa-solid fa-phone me-1"></i> تماس فوری
-                        </a>
-                        <button onclick="openOrderModal()" class="btn btn-primary btn-lg">
-                            <i class="fa-solid fa-file-circle-plus me-1"></i> ثبت درخواست آنلاین
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-7 text-center">
-                    <img
-                        src="hero.webp"
-                        class="img-fluid hero-image"
-                        alt="خدمات اینترنتی و کامپیوتری کسرا"
-                        loading="eager"
-                        width="650"
-                        height="450">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="py-5">
-        <div class="container">
-            <div class="section-title">
-                <h2>خدمات ما</h2>
-                <p>مجموعه کاملی از خدمات اینترنتی و کامپیوتری</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('ثبت‌نام اینترنتی')">
-                        <img src="kapi-register.webp"
-                             alt="ثبت نام اینترنتی"
-                             class="service-icon"
-                             loading="lazy" width="70" height="70">
-                        <h5>ثبت نام اینترنتی</h5>
-                        <p>ثبت نام سامانه‌ها و خدمات آنلاین</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('دولت الکترونیک')">
-                         <img src="kapi-gov.webp"
-                             alt="دولت الکترونیک"
-                             class="service-icon"
-                             loading="lazy" width="70" height="70">
-                        <h5>دولت الکترونیک</h5>
-                        <p>کاتب، خودنویس، املاک و اسکان</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('ثبت‌نام آزمون')">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <h5>ثبت نام آزمون‌ها</h5>
-                        <p>کنکور، استخدامی و سازمان‌ها</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('سایر')">
-                        <i class="fa-solid fa-school"></i>
-                        <h5>خدمات آموزشی</h5>
-                        <p>مدارس، دانشگاه‌ها و انتقالی</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('نصب ویندوز')">
-                        <img src="kapi-windows.webp"
-                             alt="نصب ویندوز"
-                             class="service-icon"
-                             loading="lazy" width="70" height="70">
-                        <h5>نصب ویندوز</h5>
-                        <p>نصب ویندوز ۱۰ و ۱۱ در محل</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('نصب نرم‌افزار')">
-                        <img src="kapi-software.webp"
-                         alt="نصب نرم افزار"
-                            class="service-icon"
-                            loading="lazy" width="70" height="70">
-                        <h5>نصب نرم افزار</h5>
-                        <p>عمومی و تخصصی</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('رفع مشکل سیستم')">
-                        <img src="kapi-Repair.webp"
-                        alt="رفع مشکل سیستم"
-                            class="service-icon"
-                            loading="lazy" width="70" height="70">
-                        <h5>رفع مشکلات سیستم</h5>
-                        <p>عیب یابی و تعمیر نرم افزاری</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="service-card" onclick="openOrderModal('بیمه')">
-                        <img src="kapi-insu.webp"
-                        alt="بیمه"
-                            class="service-icon"
-                            loading="lazy" width="70" height="70">
-                        <h5>بیمه و تامین اجتماعی</h5>
-                        <p>خدمات سامانه‌های بیمه‌ای</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" class="features">
-        <div class="container py-4">
-            <div class="section-title">
-                <h2>چرا ما را انتخاب کنید؟</h2>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-3 col-6">
-                    <div class="feature-box">
-                        <i class="fa-solid fa-bolt"></i>
-                        <h5>پاسخگویی سریع</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="feature-box">
-                        <i class="fa-solid fa-shield"></i>
-                        <h5>خدمات مطمئن</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="feature-box">
-                        <i class="fa-solid fa-headset"></i>
-                        <h5>پشتیبانی دائمی</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="feature-box">
-                        <i class="fa-solid fa-house"></i>
-                        <h5>اعزام در محل</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>نظرات مشتریان</h2>
-                <p>اعتماد شما سرمایه ماست</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>ثبت نام تعویض پلاک و کارت سوخت من خیلی سریع انجام شد. پاسخگویی عالی بود.</p>
-                        <h6>رضا محمدی</h6>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>ویندوز لپ‌تاپم در محل نصب شد و تمام نرم افزارهای مورد نیازم هم نصب شد.</p>
-                        <h6>مریم احمدی</h6>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p>برای ثبت نام سامانه املاک و اسکان مراجعه کردم. کارم بدون دردسر انجام شد.</p>
-                        <h6>علی رضایی</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prices -->
-    <section id="prices" class="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>تعرفه خدمات</h2>
-                <p>قیمت‌های شفاف، بدون هزینه پنهان</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="price-card">
-                        <i class="fa-solid fa-file-signature fa-2x mb-3 text-primary"></i>
-                        <h4>ثبت نام اینترنتی</h4>
-                        <div class="price">از ۱۵۰ هزار تومان</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-card">
-                        <i class="fa-brands fa-windows fa-2x mb-3 text-primary"></i>
-                        <h4>نصب ویندوز</h4>
-                        <div class="price">از ۳۰۰ هزار تومان</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="price-card">
-                        <i class="fa-solid fa-gear fa-2x mb-3 text-primary"></i>
-                        <h4>نصب نرم افزار</h4>
-                        <div class="price">از ۱۰۰ هزار تومان</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="py-5">
-        <div class="container text-center py-3">
-            <h2 class="mb-4">تماس با ما</h2>
-            <h4><a href="tel:09204036858">۰۹۲۰۴۰۳۶۸۵۸</a></h4>
-            <p>پاسخگویی همه روزه از ساعت ۸ صبح تا ۲۲ شب</p>
-            <div class="contact-btns">
-                <a href="https://ble.ir/hghanbari65" class="btn btn-success btn-lg" target="_blank" rel="noopener">
-                    💬 ثبت درخواست در بله
-                </a>
-                <button onclick="openOrderModal()" class="btn btn-primary btn-lg">
-                    📝 ثبت درخواست آنلاین
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEO Content -->
-    <section class="seo-content">
-        <div class="container">
-            <h2><i class="fas fa-globe"></i> کافی نت آنلاین</h2>
-            <p>کافی نت آنلاین کسرا ارائه‌دهنده انواع خدمات اینترنتی و ثبت‌نام‌های آنلاین به صورت سریع و مطمئن است. ثبت‌نام سامانه‌های دولتی، خدمات دولت الکترونیک، سامانه املاک و اسکان، کارت سوخت و سایر خدمات اینترنتی بدون نیاز به مراجعه حضوری انجام می‌شود.</p>
-            <h2><i class="fab fa-windows"></i> نصب ویندوز در محل</h2>
-            <p>خدمات نصب ویندوز در محل شامل نصب ویندوز ۱۰ و ۱۱، نصب درایورها، بهینه‌سازی سیستم و نصب نرم‌افزارهای عمومی و تخصصی است. این خدمات بدون نیاز به جابه‌جایی کامپیوتر یا لپ‌تاپ در محل شما انجام می‌شود.</p>
-            <h2><i class="fas fa-gas-pump"></i> ثبت نام کارت سوخت</h2>
-            <p>در صورت مفقود شدن کارت سوخت یا نیاز به دریافت کارت سوخت المثنی، تمامی مراحل ثبت درخواست و تکمیل اطلاعات به صورت آنلاین انجام می‌شود.</p>
-            <h2><i class="fas fa-laptop-code"></i> خدمات کامپیوتری در محل</h2>
-            <p>نصب نرم‌افزار، رفع مشکلات ویندوز، بهینه‌سازی سیستم، نصب آنتی‌ویروس، عیب‌یابی نرم‌افزاری و راه‌اندازی نرم‌افزارهای تخصصی از جمله خدمات کامپیوتری در محل هستند که توسط کافی نت آنلاین کسرا ارائه می‌شوند.</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="footer-title">کافی نت آنلاین کسرا | خدمات کامپیوتری و ثبت نام اینترنتی</div>
-                    <p>خدمات اینترنتی و کامپیوتری در محل</p>
-                </div>
-                <div class="col-md-4">
-                    <div class="footer-title">راه‌های ارتباطی</div>
-                    <p>۰۹۲۰۴۰۳۶۸۵۸</p>
-                    <p>بله و تماس تلفنی</p>
-                </div>
-                <div class="col-md-4">
-                    <div class="footer-title">ساعات کاری</div>
-                    <p>همه روزه</p>
-                    <p>۰۸:۰۰ الی ۲۲:۰۰</p>
-                </div>
-        
-            </div>
-            <hr>
-            <div class="text-center">© تمامی حقوق محفوظ است — کافی نت آنلاین کسرا</div>
-        </div>
-    </footer>
-
-    <!-- FAB Menu -->
-    <div class="fab-container" id="fabContainer">
-        <a href="https://ble.ir/hghanbari65" class="fab-item" title="پیام در بله" target="_blank" rel="noopener" aria-label="ارسال پیام در بله">💬</a>
-        <a href="tel:09204036858" class="fab-item" title="تماس" aria-label="تماس تلفنی">📞</a>
-        <button onclick="openOrderModal(); closeFab();" class="fab-item" title="ثبت سفارش" aria-label="ثبت درخواست آنلاین">📝</button>
-        <button class="fab-main" id="fabMainBtn" onclick="toggleFab()" aria-label="منوی تماس سریع" aria-expanded="false">＋</button>
+<section id="work">
+  <div class="wrap">
+    <h2>نمونه‌کارها</h2>
+    <p class="lead">گزیده‌ای از پروژه‌هایی که با هوش مصنوعی ساختم.</p>
+    <div class="filters" role="group" aria-label="فیلتر نمونه‌کارها">
+      <button data-f="all" aria-pressed="true">همه</button>
+      <button data-f="video" aria-pressed="false">ویدئو</button>
+      <button data-f="poster" aria-pressed="false">پوستر</button>
+      <button data-f="motion" aria-pressed="false">موشن‌گرافیک</button>
     </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
 
-    <!-- Modal -->
-    <div class="order-modal-overlay" id="orderModalOverlay"
-         role="dialog" aria-modal="true" aria-labelledby="modalTitle"
-         onclick="handleOverlayClick(event)">
-        <div class="order-modal">
-            <button class="modal-close-btn" onclick="closeOrderModal()" aria-label="بستن">✕</button>
-            <div class="modal-header-title" id="modalTitle">📝 ثبت درخواست</div>
-            <div class="modal-header-sub">اطلاعات خود را وارد کنید، در اسرع وقت تماس می‌گیریم</div>
-
-            <form id="orderForm" action="https://formspree.io/f/xvzynvwe" method="POST" novalidate>
-                <input type="hidden" name="_subject" value="درخواست جدید — کافی نت کسرا">
-                <input type="hidden" name="_captcha" value="false">
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="inputName">نام و نام خانوادگی <span class="text-danger">*</span></label>
-                    <input type="text" id="inputName" name="name" class="form-control" placeholder="مثلاً: علی رضایی" required autocomplete="name">
-                    <div class="invalid-feedback">لطفاً نام خود را وارد کنید.</div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="inputPhone">شماره تماس <span class="text-danger">*</span></label>
-                    <input type="tel" id="inputPhone" name="phone" class="form-control" placeholder="09xxxxxxxxx" required pattern="^09[0-9]{9}$" title="شماره موبایل معتبر وارد کنید" autocomplete="tel">
-                    <div class="invalid-feedback">شماره موبایل معتبر وارد کنید (مثلاً: ۰۹۱۲۳۴۵۶۷۸۹).</div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="serviceSelect">نوع خدمت <span class="text-danger">*</span></label>
-                    <select name="service" class="form-select" id="serviceSelect" required onchange="showFields(this.value)">
-                        <option value="">— انتخاب کنید —</option>
-                        <option value="ثبت‌نام اینترنتی">ثبت‌نام اینترنتی</option>
-                        <option value="نصب ویندوز">نصب ویندوز</option>
-                        <option value="نصب نرم‌افزار">نصب نرم‌افزار</option>
-                        <option value="دولت الکترونیک">دولت الکترونیک (کاتب، خودنویس، اسکان)</option>
-                        <option value="ثبت‌نام آزمون">ثبت‌نام آزمون (کنکور، استخدامی)</option>
-                        <option value="بیمه">بیمه و تامین اجتماعی</option>
-                        <option value="رفع مشکل سیستم">رفع مشکل سیستم</option>
-                        <option value="سایر">سایر</option>
-                    </select>
-                    <div class="invalid-feedback">لطفاً نوع خدمت را انتخاب کنید.</div>
-                </div>
-
-                <!-- فیلدهای شرطی -->
-                <div id="fields-ثبت‌نام اینترنتی" class="dynamic-fields d-none">
-                    <div class="alert alert-info py-2 mb-3 small">📌 لطفاً مدارک مورد نیاز (کارت ملی، شناسنامه) را آماده کنید.</div>
-                    <div class="mb-3">
-                        <label class="form-label" for="site_name">نام سامانه یا سایت مورد نظر</label>
-                        <input type="text" id="site_name" name="site_name" class="form-control" placeholder="مثلاً: سامانه ثبت احوال">
-                    </div>
-                </div>
-
-                <div id="fields-نصب ویندوز" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="device_type">نوع دستگاه</label>
-                        <select id="device_type" name="device_type" class="form-select">
-                            <option value="">انتخاب کنید</option>
-                            <option>لپ‌تاپ</option>
-                            <option>کامپیوتر رومیزی</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="windows_version">نسخه ویندوز مورد نظر</label>
-                        <select id="windows_version" name="windows_version" class="form-select">
-                            <option value="">انتخاب کنید</option>
-                            <option>ویندوز ۱۱</option>
-                            <option>ویندوز ۱۰</option>
-                            <option>هر کدام مناسب‌تر باشد</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="address_win">آدرس تقریبی (برای اعزام در محل)</label>
-                        <input type="text" id="address_win" name="address" class="form-control" placeholder="شهر / محله">
-                    </div>
-                </div>
-
-                <div id="fields-نصب نرم‌افزار" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="software_names">نام نرم‌افزار(ها)</label>
-                        <input type="text" id="software_names" name="software_names" class="form-control" placeholder="مثلاً: آفیس، فتوشاپ، حسابداری">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="address_sw">آدرس تقریبی</label>
-                        <input type="text" id="address_sw" name="address" class="form-control" placeholder="شهر / محله">
-                    </div>
-                </div>
-
-                <div id="fields-دولت الکترونیک" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="gov_service">نوع خدمت دولتی</label>
-                        <select id="gov_service" name="gov_service" class="form-select">
-                            <option value="">انتخاب کنید</option>
-                            <option>کاتب (دفاتر اسناد)</option>
-                            <option>خودنویس</option>
-                            <option>سامانه املاک و اسکان</option>
-                            <option>سایر</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="fields-ثبت‌نام آزمون" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="exam_name">نام آزمون</label>
-                        <input type="text" id="exam_name" name="exam_name" class="form-control" placeholder="مثلاً: کنکور سراسری ۱۴۰۴">
-                    </div>
-                </div>
-
-                <div id="fields-بیمه" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="insurance_service">نوع خدمت بیمه</label>
-                        <select id="insurance_service" name="insurance_service" class="form-select">
-                            <option value="">انتخاب کنید</option>
-                            <option>ثبت‌نام بیمه تامین اجتماعی</option>
-                            <option>استعلام بیمه</option>
-                            <option>سابقه بیمه</option>
-                            <option>سایر</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="fields-رفع مشکل سیستم" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="problem_desc">شرح مشکل</label>
-                        <textarea id="problem_desc" name="problem_desc" class="form-control" rows="3" placeholder="مشکل سیستم را توضیح دهید..."></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="address_fix">آدرس تقریبی</label>
-                        <input type="text" id="address_fix" name="address" class="form-control" placeholder="شهر / محله">
-                    </div>
-                </div>
-
-                <div id="fields-سایر" class="dynamic-fields d-none">
-                    <div class="mb-3">
-                        <label class="form-label" for="description">توضیحات</label>
-                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="خدمت مورد نظر را توضیح دهید..."></textarea>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label fw-bold" for="notes">توضیحات تکمیلی</label>
-                    <textarea id="notes" name="notes" class="form-control" rows="2" placeholder="هر نکته‌ای که لازم است بدانیم..."></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100 btn-lg" id="submitBtn">
-                    <span id="btnText">ارسال درخواست</span>
-                    <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ms-2" role="status" aria-hidden="true"></span>
-                </button>
-
-                <div id="successMsg" class="alert alert-success mt-3 d-none text-center" role="alert">
-                    ✅ درخواست شما ثبت شد. به زودی با شما تماس می‌گیریم.
-                </div>
-                <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center" role="alert">
-                    ❌ مشکلی پیش آمد. لطفاً مستقیم با شماره تماس بگیرید.
-                </div>
-            </form>
-        </div>
+<section id="about">
+  <div class="wrap about">
+    <div class="avatar" id="avatar" role="img" aria-label="تصویر من">K</div>
+    <div>
+      <h2>درباره من</h2>
+      <p style="margin-top:14px">من تولیدکننده محتوا با هوش مصنوعی‌ام. از یک ایده یا یک جمله شروع می‌کنم و به ویدئو، پوستر یا موشن‌گرافیکی می‌رسم که آماده انتشار باشه. اینجا بنویس چند وقته کار می‌کنی و برای چه کسب‌وکارهایی تولید کردی.</p>
+      <div class="tools">
+        <span>تولید ویدئو</span><span>تصویرسازی</span><span>موشن‌گرافیک</span><span>صداگذاری</span><span>تدوین</span>
+      </div>
     </div>
+  </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        /* ---- FAB ---- */
-        function toggleFab() {
-            const fab = document.getElementById('fabContainer');
-            const btn = document.getElementById('fabMainBtn');
-            const isActive = fab.classList.toggle('active');
-            btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-            btn.textContent = isActive ? '✕' : '＋';
-        }
-        function closeFab() {
-            document.getElementById('fabContainer').classList.remove('active');
-            const btn = document.getElementById('fabMainBtn');
-            btn.setAttribute('aria-expanded', 'false');
-            btn.textContent = '＋';
-        }
+<section id="services">
+  <div class="wrap">
+    <h2>خدمات و سفارش</h2>
+    <p class="lead">قیمت هر پروژه بر اساس مدت، تعداد نسخه و پیچیدگی مشخص می‌شه. بعد از پیام اول، قیمت دقیق رو می‌گم.</p>
+    <div class="services">
+      <div class="svc"><h3>ویدئوی کوتاه</h3><p>ریلز، تیزر و کلیپ تبلیغاتی</p><ul><li>سناریو و استوری‌بورد</li><li>تولید و تدوین</li><li>خروجی عمودی و افقی</li></ul></div>
+      <div class="svc"><h3>پوستر و کاور</h3><p>برای شبکه‌های اجتماعی و چاپ</p><ul><li>چند پیشنهاد اولیه</li><li>اصلاح متن و رنگ</li><li>فایل آماده انتشار و چاپ</li></ul></div>
+      <div class="svc"><h3>موشن‌گرافیک</h3><p>لوگو، اینفوگرافیک و توضیح محصول</p><ul><li>طراحی حرکت</li><li>موسیقی و افکت صوتی</li><li>نسخه با زیرنویس فارسی</li></ul></div>
+    </div>
+    <div class="steps">
+      <div><b>ایده رو بگو</b>هدف، مخاطب و یک نمونه که دوست داری.</div>
+      <div><b>پیش‌نمایش می‌گیری</b>قبل از نسخه نهایی، نمونه اولیه رو می‌بینی.</div>
+      <div><b>تحویل می‌گیری</b>فایل نهایی با یک دور اصلاح.</div>
+    </div>
+  </div>
+</section>
 
-        /* ---- Modal ---- */
-        function openOrderModal(service) {
-            document.getElementById('orderModalOverlay').classList.add('open');
-            document.body.style.overflow = 'hidden';
-            if (service) {
-                const select = document.getElementById('serviceSelect');
-                select.value = service;
-                showFields(service);
-            }
-            setTimeout(() => {
-                const first = document.querySelector('#orderForm input, #orderForm select');
-                if (first) first.focus();
-            }, 350);
-        }
-        function closeOrderModal() {
-            document.getElementById('orderModalOverlay').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        function handleOverlayClick(e) {
-            if (e.target === document.getElementById('orderModalOverlay')) closeOrderModal();
-        }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOrderModal(); });
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>پروژه‌ت رو برام بفرست</h2>
+      <p class="lead">یک پیام کوتاه کافیه: چی می‌خوای، برای چه کاری، و تا کی.</p>
+      <a class="handle" href="https://instagram.com/kasranex.ai">@kasranex.ai</a>
+      <div class="links">
+        <a class="btn main" href="https://instagram.com/kasranex.ai">پیام در اینستاگرام</a>
+        <!-- اگه تلگرام یا ایمیل داری، اینجا اضافه کن:
+        <a class="btn" href="https://t.me/YOUR_ID">تلگرام</a>
+        <a class="btn" href="mailto:you@example.com">ایمیل</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+</main>
 
-        /* ---- فیلدهای شرطی ---- */
-        function showFields(value) {
-            document.querySelectorAll('.dynamic-fields').forEach(el => {
-                el.classList.add('d-none');
-                el.querySelectorAll('input, select, textarea').forEach(f => f.removeAttribute('required'));
-            });
-            if (value) {
-                const target = document.getElementById('fields-' + value);
-                if (target) target.classList.remove('d-none');
-            }
-        }
+<footer>© kasranex.ai</footer>
 
-        /* ---- ارسال فرم ---- */
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (!this.checkValidity()) { this.classList.add('was-validated'); return; }
-            this.classList.remove('was-validated');
-
-            const btn     = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('btnSpinner');
-            const success = document.getElementById('successMsg');
-            const error   = document.getElementById('errorMsg');
-
-            btn.disabled = true;
-            btnText.textContent = 'در حال ارسال...';
-            spinner.classList.remove('d-none');
-            success.classList.add('d-none');
-            error.classList.add('d-none');
-
-            try {
-                const res = await fetch(this.action, {
-                    method: 'POST',
-                    body: new FormData(this),
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (res.ok) {
-                    success.classList.remove('d-none');
-                    this.reset();
-                    this.classList.remove('was-validated');
-                    showFields('');
-                    setTimeout(closeOrderModal, 3000);
-                } else {
-                    error.classList.remove('d-none');
-                }
-            } catch {
-                error.classList.remove('d-none');
-            } finally {
-                btn.disabled = false;
-                btnText.textContent = 'ارسال درخواست';
-                spinner.classList.add('d-none');
-            }
-        });
-
-        /* ---- Navbar scroll ---- */
-        window.addEventListener('scroll', () => {
-            document.querySelector('.navbar').style.boxShadow =
-                window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,.3)' : 'none';
-        }, { passive: true });
-    </script>
-
+<script>
+/* نمونه‌کارها: هر مورد رو با فایل خودت جایگزین کن.
+   type: video | poster | motion
+   src : مسیر فایل (mp4/webm برای ویدئو و موشن، webp/png برای پوستر). اگر خالی باشه، پس‌زمینه رنگی نشون داده می‌شه. */
+const works = [
+  {type:"video",  title:"تیزر محصول",       note:"۱۵ ثانیه",  g:["#7c5cff","#22d3ee"], src:""},
+  {type:"poster", title:"پوستر جشنواره",     note:"۳:۴",      g:["#ff4d8d","#7c5cff"], src:""},
+  {type:"motion", title:"انیمیشن لوگو",      note:"۸ ثانیه",  g:["#22d3ee","#2d5bff"], src:""},
+  {type:"poster", title:"کاور آلبوم",        note:"۱:۱",      g:["#ffb454","#ff4d8d"], src:""},
+  {type:"video",  title:"ریلز معرفی برند",   note:"۳۰ ثانیه", g:["#ff4d8d","#ffb454"], src:""},
+  {type:"motion", title:"اینفوگرافیک متحرک", note:"۲۰ ثانیه", g:["#7c5cff","#ff4d8d"], src:""},
+  {type:"poster", title:"پوستر فیلم کوتاه",  note:"۳:۴",      g:["#22d3ee","#7c5cff"], src:""},
+  {type:"video",  title:"کلیپ داستانی",      note:"۴۵ ثانیه", g:["#2d5bff","#22d3ee"], src:""}
+];
+const label = {video:"ویدئو", poster:"پوستر", motion:"موشن"};
+const grid = document.getElementById("grid");
+works.forEach(w => {
+  const f = document.createElement("figure");
+  f.className = "card " + w.type;
+  f.dataset.type = w.type;
+  let media;
+  if (w.src && /\.(mp4|webm)$/i.test(w.src)) media = `<video src="${w.src}" muted loop playsinline autoplay></video>`;
+  else if (w.src) media = `<img src="${w.src}" alt="${w.title}" loading="lazy">`;
+  else media = `<div class="ph" style="background:radial-gradient(circle at 25% 20%,${w.g[0]},transparent 60%),radial-gradient(circle at 80% 85%,${w.g[1]},transparent 55%),#141731"></div>`;
+  f.innerHTML = media + `<span class="badge">${label[w.type]}</span><figcaption>${w.title}<small>${w.note}</small></figcaption>`;
+  grid.appendChild(f);
+});
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  grid.querySelectorAll(".card").forEach(c => c.hidden = b.dataset.f !== "all" && c.dataset.type !== b.dataset.f);
+}));
+</script>
 </body>
 </html>
